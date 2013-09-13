@@ -1,0 +1,44 @@
+<!--
+  docinfo.xml
+-->
+
+<releaseinfo>Version {revision}</releaseinfo>
+<authorgroup>
+  <author>
+    <firstname>Dustin</firstname>
+    <surname>Schultz</surname>
+    <email>dustin.schultz@utah.edu</email>
+  </author>
+  <author>
+    <firstname>Ryan</firstname>
+    <surname>Butcher</surname>
+    <email>ryan.butcher@utah.edu</email>
+  </author>
+  <author>
+    <firstname>Ramkiran </firstname>
+    <surname>Gouripeddi</surname>
+    <email>ram.gouripeddi@utah.edu</email>
+  </author>
+  <author>
+    <firstname>Randy</firstname>
+    <surname>Madsen</surname>
+    <email>randy.madsen@utah.edu</email>
+  </author>
+  <author>
+    <firstname>Peter</firstname>
+    <surname>Mo</surname>
+    <email>peter.mo@utah.edu</email>
+  </author>
+</authorgroup>
+
+<copyright>
+  <year>2013</year>
+  <holder>The FURTHeR Project</holder>
+</copyright>
+
+<legalnotice>
+  <title>Legal Notices</title>
+  <para>
+    Copies of this document may be made for your own use and for distribution to others, provided that you do not charge any fee for such copies and further provided that each copy contains this Copyright Notice, whether distributed in print or electronically
+  </para>
+</legalnotice>
