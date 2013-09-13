@@ -1,4 +1,12 @@
-further-open-doc
-================
+OpenFurther Reference Documentation
+===================================
+Dustin Schultz <dustin.schultz@utah.edu>
+Ryan Butcher <ryan.butcher@utah.edu>
+Ramkiran Gouripeddi <ram.gouripeddi@utah.edu>
+Randy Madsen <randy.madsen@utah.edu>
+Peter Mo <peter.mo@utah.edu>
+1.4.0-SNAPSHOT
 
-OpenFurther Reference Documentation source
+Introduction
+------------
+FURTHeR, The Federated Utah Research and Translational Health electronic Repository, has been developed as part of the Biomedical Informatics Core (BMIC) at the University of Utah’s Center for Clinical and Translational Science (CCTS). FURTHeR’s primary function is to federate health information from heterogeneous data sources to aid researchers in cohort selection and retrospective comparative effectiveness research. FURTHeR achieves real-time federation of health information from heterogeneous data sources using a logical federated query language, a query and result translator for translating queries and results from each heterogeneous data source, and standard terminology to unify data across sources.
