@@ -3,7 +3,7 @@ OpenFurther Reference Documentation
 OpenFurther Team <openfurther@gmail.com>
 :revision: 1.4.0-SNAPSHOT
 
-This documentation applies to OpenFurther version {revision}
+IMPORTANT: This documentation applies to OpenFurther version {revision}
 
 Introduction
 ------------
