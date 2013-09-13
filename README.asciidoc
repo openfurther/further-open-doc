@@ -1,11 +1,9 @@
 OpenFurther Reference Documentation
 ===================================
-Dustin Schultz <dustin.schultz@utah.edu>
-Ryan Butcher <ryan.butcher@utah.edu>
-Ramkiran Gouripeddi <ram.gouripeddi@utah.edu>
-Randy Madsen <randy.madsen@utah.edu>
-Peter Mo <peter.mo@utah.edu>
-1.4.0-SNAPSHOT
+OpenFurther Team <openfurther@gmail.com>
+:revision: 1.4.0-SNAPSHOT
+
+This documentation applies to OpenFurther version {revision}
 
 Introduction
 ------------
