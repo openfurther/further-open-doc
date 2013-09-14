@@ -103,6 +103,53 @@ The MDR is responsible for storing information (artifacts) about varying data so
 * Models supported
 ** OMOP, i2b2, local models
 
+Terminology
+-----------
+
+Getting Started
+~~~~~~~~~~~~~~~
+In order to utilize the OpenFurther software, it is necessary to have terminology mappings from your desired data sources to standard terminologies. OpenFurther's i2b2 front end user interface contains an ontology based off of the recommendations of the Healthcare Information Technology Standards Panel(HITSP). For instance, HITSP recommends the use of ICD-9 codes for diagnosis and LOINC for laboratory data. These standard codes are then translated via the software, terminology server, and associated mappings to be able to resolve to a local data source's codes/terms. OpenFurther uses Apelon INC's Distributed Terminology System (DTS). It is recommended to outside organizations that desire to use the OpenFurther software to consider resourcing a dedicated terminologist or someone that has experience with controlled vocabularies and ontologies to work on managing/mapping local vocabularies/codes to their specific implementation of OpenFurther.
+
+Why are mappings needed?
+^^^^^^^^^^^^^^^^^^^^^^^
+Mappings are needed because of the variations in terminology used between disparate data sources.
+
+image:images/figures/mapping_terminology.png[scale="75%"]
+
+Initial Steps
+^^^^^^^^^^^^^
+Apelon DTS provides excellent documentation and examples of how to use their terminology server software. All Apelon documentation can be found here http://apelon-dts.sourceforge.net/documents.html
+
+Local Namespaces
+++++++++++++++++
+Refer to page 67 of the Apelon documentation.
+
+Authorities
++++++++++++
+Refer to page 72 of the Apelon documentation.
+
+Association Types
++++++++++++++++++
+Refer to pages 75-77 of the Apelon documentation.
+
+Association Qualifier Types
++++++++++++++++++++++++++++
+Refer to pages 80-84 of the Apelon documentation.
+
+Property Types
+++++++++++++++
+Refer to pages 94-96 of the Apelon documentation.
+
+Property Qualifier Types
+++++++++++++++++++++++++
+Refer to pages 99-101 of the Apelon documentation.
+
+Adding new concepts/terms, assign properties, assosciations/mappings
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Refer to pages 119-141 of the Apelon documentation.
+
+Also refer to the import wizard plugin http://sourceforge.net/apps/trac/apelon-dts/raw-attachment/wiki/MiscWikiFiles/importwizarduserguide-3.0.pdf
+
 Technologies
 ------------
 OpenFurther is built on a number of Open Source technologies
