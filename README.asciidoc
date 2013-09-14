@@ -1,9 +1,22 @@
 OpenFurther Reference Documentation
 ===================================
-OpenFurther Team <openfurther@gmail.com>
-:revision: 1.4.0-SNAPSHOT
 
-IMPORTANT: This documentation applies to OpenFurther version {revision}
+About
+-------
+The following documentation applies to *OpenFurther version {version}*
+
+Conventions
+~~~~~~~~~~~
+
+NOTE: A note
+
+IMPORTANT: An important point
+
+TIP: A tip
+
+WARNING: A warning
+
+CAUTION: A point of caution
 
 Introduction
 ------------
