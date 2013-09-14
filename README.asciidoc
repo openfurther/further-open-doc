@@ -3,7 +3,7 @@ OpenFurther Reference Documentation
 
 About
 -----
-The following documentation applies to *OpenFurther version {version}*
+The following documentation applies to *OpenFurther version 1.4.0-SNAPSHOT*
 
 Conventions
 ~~~~~~~~~~~
