@@ -220,5 +220,6 @@ ServiceMix ESB logs in /home/esb/servicemix/data/log
 OpenFurther-i2b2
 ^^^^^^^^^^^^^^^^
 FURTHeR-i2b2 logs in 2 different locations
+
 * jboss: /home/i2b2/jboss/server/default/logs
 * tomcat: /home/i2b2/tomcat/logs
