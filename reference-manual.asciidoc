@@ -150,6 +150,105 @@ Refer to pages 119-141 of the Apelon documentation.
 
 Also refer to the import wizard plugin http://sourceforge.net/apps/trac/apelon-dts/raw-attachment/wiki/MiscWikiFiles/importwizarduserguide-3.0.pdf
 
+Metadata Repository (MDR)
+-------------------------
+
+Getting Started
+~~~~~~~~~~~~~~~
+Two important parts of the metadata repository are Query Translation and Result Translation. Data stored within the MDR is used to drive each of these processes.
+
+image:images/figures/translating_metadata.png[scale="75%"]
+
+Query Translation
+^^^^^^^^^^^^^^^^^
+The objective of a query translation is to convert the OpenFurther Query Language (FQL) query (OpenFurther's classes, attributes, and attribute values) into the physical data source's data classes, attributes, and attribute values while maintaining the integrity of the query logic.
+
+image:images/figures/query_translation.png[scale="75%"]
+
+The user interface, currently i2b2, is responsible for building a query. When a query is submitted to the FQE, the FQE converts i2b2's query into the FQL, an XML representation of the query (see the FQL XML Schema) that consists of logical expressions using OpenFurther's data model classes and attributes.  Class and class attribute names used in FQL are based on OpenFurther classes and attributes and can be found in the OpenFurther's Java code located here: https://github.com/openfurther/further-open-core/tree/master/ds/ds-further/src/main/java/edu/utah/further/ds/further/model/impl/domain
+
+Coded class attribute value domains within the OpenFurther model are all based on standard terminology where demographics are SNOMED CT codes, diagnosis are ICD-9 codes, and labs are LOINC codes.  All attributes that have coded values sets also have an associated attribute that ends with the term 'NamespaceId' (namespaces are also called coding systems). This NamespaceId attribute is used to signify what coding system a particular attribute will use. For instance, raceCode=413773004 and raceCodeNamespaceId=30 would signify the SNOMED CT code for the Caucasian race.
+
+By default, Apelon DTS reserves certain identifiers for use with standard terminologys.
+
+.Apelon DTS Namespace Identifiers
+[width="40%",frame="topbot",options="header"]
+|======================
+|Namespace  |Identifier
+|SNOMED CT  |30
+|ICD-9      |10
+|LOINC      |5102
+|======================
+
+Example input and output
+++++++++++++++++++++++++
+
+.Example query translation input
+[source,xml,numbered]
+<query xmlns="http://further.utah.edu/core/query" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" rootObject="Person">
+	<rootCriterion>
+		<searchType>CONJUNCTION</searchType>
+		<criteria>
+			<searchType>SIMPLE</searchType>
+			<parameters>
+				<parameter xsi:type="RelationType">EQ</parameter>
+				<parameter xsi:type="xs:string">
+					raceNamespaceId
+				</parameter>
+				<parameter xsi:type="xs:long">30</parameter>
+			</parameters>
+		</criteria>
+		<criteria>
+			<searchType>SIMPLE</searchType>
+			<parameters>
+				<parameter xsi:type="RelationType">EQ</parameter>
+				<parameter xsi:type="xs:string">race</parameter>
+				<parameter xsi:type="xs:string">
+					413773004
+				</parameter>
+			</parameters>
+		</criteria>
+	</rootCriterion>
+	<sortCriteria />
+	<aliases />
+</query>
+
+Given the above input, query translation would generate the following output
+
+.Example query translation output
+[source,xml,numbered]
+<query xmlns="http://further.utah.edu/core/query" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" rootObject="Person">
+	<rootCriterion>
+		<searchType>CONJUNCTION</searchType>
+		<criteria>
+			<searchType>SIMPLE</searchType>
+			<parameters>
+				<parameter xsi:type="RelationType">EQ</parameter>
+				<parameter xsi:type="xs:string">
+					raceConceptId
+				</parameter>
+				<parameter xsi:type="xs:decimal">
+					4185154
+				</parameter>
+			</parameters>
+		</criteria>
+	</rootCriterion>
+	<sortCriteria />
+	<aliases />
+</query>
+
+Result Translation
+^^^^^^^^^^^^^^^^^^
+Each data source queried by OpenFurther will respond with a result set in the platform/database specific format and need to be converted into OpenFurther's data model for final analysis and reconciliation of the returned data from each data source, ie. all the pears, oranges, and pineapples need to be converted the same kind of apples. This is the job of the query result set translations, to translate all the query results back to a common/canonical/platform-independent model, or the OpenFurther model in this case.
+OpenFurther uses XQuery code to translate platform-specific result sets to the OpenFurther model implying all data is/must be converted to XML.  Converting to XML is not an extra cost since OpenFurther is a web service-centric infrastructure where messages between services are communicated via XML. Query results are no exception. Data within the MDR drives the XQuery code to translate the data source specific data model and values to the OpenFurther data model and values based on standard terminology. After the XML has been translated the data are unmarshaled back to Java objects, the OpenFurther model Java objects, where/when they are persisted to the query results database (typically the in-memory database) using Hibernate.
+
+image:images/figures/result_translation.png[scale="75%"]
+
+
 Technologies
 ------------
 OpenFurther is built on a number of Open Source technologies
