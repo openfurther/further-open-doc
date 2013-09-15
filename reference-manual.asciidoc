@@ -37,7 +37,7 @@ User Interface
 ~~~~~~~~~~~~~~
 OpenFurther utilizes the i2b2 web client as a front-end for querying data. The user interface has been modified to support federated querying.
 
-image:images/figures/i2b2_ui_query_results.png[scale="75%"]
+image:images/figures/i2b2_ui_query_results.png[]
 
 Hooking OpenFurther into i2b2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,7 +49,7 @@ The Federated Query Engine (FQE)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In OpenFurther, the term "FQE" (Federated Query Engine) is broadly referred to as the set of software modules involved in the execution of a federated query.
 
-image:images/figures/fqe.png[scale="75%"]
+image:images/figures/fqe.png[]
 
 * A federated query written in FQL (an XML based query language) or an i2b2 query is submitted at *1*.
 * Utilizing the publish-subscribe pattern, one or more data source adapters are subscribed to the Query Topic at *2*. 
@@ -63,7 +63,7 @@ Data Source Adapters
 ~~~~~~~~~~~~~~~~~~~~
 Data source adapters are facades around an existing data source. Data source adapters can be entirely custom for any given implementation or they can use a pre-written adapter if their data source is already in a well-known format such as OMOP, i2b2, OpenEMR, etc
 
-image:images/figures/data_source_adapters.png[scale="75%"]
+image:images/figures/data_source_adapters.png[]
 
 * Data source adapters follow the chain-of-responsibility pattern. The process of adapting a query is broken down into several small steps and each output is passed on to the next step. Data source adapters typically have 4 commons steps. 
 
@@ -114,7 +114,7 @@ Why are mappings needed?
 ^^^^^^^^^^^^^^^^^^^^^^^
 Mappings are needed because of the variations in terminology used between disparate data sources.
 
-image:images/figures/mapping_terminology.png[scale="75%"]
+image:images/figures/mapping_terminology.png[]
 
 Initial Steps
 ^^^^^^^^^^^^^
@@ -157,13 +157,13 @@ Getting Started
 ~~~~~~~~~~~~~~~
 Two important parts of the metadata repository are Query Translation and Result Translation. Data stored within the MDR is used to drive each of these processes.
 
-image:images/figures/translating_metadata.png[scale="75%"]
+image:images/figures/translating_metadata.png[]
 
 Query Translation
 ^^^^^^^^^^^^^^^^^
 The objective of a query translation is to convert the OpenFurther Query Language (FQL) query (OpenFurther's classes, attributes, and attribute values) into the physical data source's data classes, attributes, and attribute values while maintaining the integrity of the query logic.
 
-image:images/figures/query_translation.png[scale="75%"]
+image:images/figures/query_translation.png[]
 
 The user interface, currently i2b2, is responsible for building a query. When a query is submitted to the FQE, the FQE converts i2b2's query into the FQL, an XML representation of the query (see the FQL XML Schema) that consists of logical expressions using OpenFurther's data model classes and attributes.  Class and class attribute names used in FQL are based on OpenFurther classes and attributes and can be found in the OpenFurther's Java code located here: https://github.com/openfurther/further-open-core/tree/master/ds/ds-further/src/main/java/edu/utah/further/ds/further/model/impl/domain
 
@@ -246,7 +246,7 @@ Result Translation
 Each data source queried by OpenFurther will respond with a result set in the platform/database specific format and need to be converted into OpenFurther's data model for final analysis and reconciliation of the returned data from each data source, ie. all the pears, oranges, and pineapples need to be converted the same kind of apples. This is the job of the query result set translations, to translate all the query results back to a common/canonical/platform-independent model, or the OpenFurther model in this case.
 OpenFurther uses XQuery code to translate platform-specific result sets to the OpenFurther model implying all data is/must be converted to XML.  Converting to XML is not an extra cost since OpenFurther is a web service-centric infrastructure where messages between services are communicated via XML. Query results are no exception. Data within the MDR drives the XQuery code to translate the data source specific data model and values to the OpenFurther data model and values based on standard terminology. After the XML has been translated the data are unmarshaled back to Java objects, the OpenFurther model Java objects, where/when they are persisted to the query results database (typically the in-memory database) using Hibernate.
 
-image:images/figures/result_translation.png[scale="75%"]
+image:images/figures/result_translation.png[]
 
 
 Technologies
