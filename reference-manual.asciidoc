@@ -260,6 +260,57 @@ Translations depend on the MDR for attribute-to-attribute translations.  The MDR
 5. Attribute-to-attribute mappings are mapped together in a similar way, through the Asset Association, by associating attribute Assets with other attribute Assets.  In this case we would want to map your newly created attributes with the OpenFurther model attributes, say OpenFurther.Person.dateOfBirth to myPerson.birthDate.  And by the way, the direction of this relationship is crucial, LS=left side, RS=right side, so that OpenFurther.Person.dateOfBirth (right side) maps to myPerson.birthDate (left side) using the association "translatesTo". The view ASSET_ASSOC_V illustrates existing mappings.
 6. Create attribute-to-attribute translation properties - translation associations (and other associations) can have properties (in ASSET_ASSOC_PROP) that describe the translation mapping requirements. For example, some properties may direct a data type conversion such as int to string, while others may declare a function that needs to be used for a functional conversion, or even an instruction to not change an attribute name. Properties are created via the ASSET_ASSOC_PROP table and are associated to ASSET_ASSOC records.
 
+Data Source Adapters
+--------------------
+Data source adapters are the pieces of OpenFurther which interact with a data source. Loosely speaking, data source adapters are like plugins. They are simply modules that listen for incoming query requests and act upon them, following a specified protocol. Any programming language that can send and receive messages to a JMS topic, as well as process XML, can be used to program a data source adapter. We do, however, recommend using the existing framework.
+
+Data source adapters follow a standard protocol:
+
+* initialization
+* query translation
+* execution
+* result translation
+
+At the end of each step, status messages are sent to a JMS topic. Statuses include the current state of the query and how many results have been processed at that time.
+
+Likewise, every query can be in one of the following states:
+
+* QUEUED
+* STARTED
+* EXECUTING
+* STOPPED
+* FAILED
+
+Java Data Source Adapter Framework
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OpenFurther provides several data source adapters, supported by the community, that run against well known data models. These adapters can be used by downloading the existing adapter, customizing the configuration, compiling them for execution, and installing them into the system.
+
+Additionally, OpenFurther is flexible and also provides the ability to implement your own custom adapter. Reasons for doing this include but are not limited to:
+
+* A custom data model
+* A custom interface for accessing the data, such as a web service.
+* Custom processing required beyond the standard processing steps within an adapter.
+
+Implementing a custom data source adapter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We recommend downloading the source code of an existing data source adapter to use as a reference and starting point for your custom data source adapter. Existing data source adapters can found here https://github.com/openfurther/further-open-datasources
+
+Query Processors
+++++++++++++++++
+Data source adapters follow a chain-of-responsibility pattern. The query is passed through several processors and each processor is given an opportunity to interact or ignore the data given to it by the processing of previous processors. 
+
+There are several default query processors for each step within data source adaption.
+
+Each Query Processor has a Delegate implementation that contains the business logic to implement each processor.
+
+* QueryTranslatorQp
+** Delegate: QueryTranslatorXQueryImpl - implements query translator by utilizing an XQuery program which in turns utilizes metadata within the MDR. Xquery files are stored within the MDR and can be referenced by path. The path to the MDR file is given as part of initialization.
+* QueryExecutorQp
+** Delegate: ExecutorQuestImpl – implements query execution based on the data source type specified by DS_TYPE within initialization. Currently, only database data sources are well supported, however, web services data sources can be implemented with additional effort.
+* ResultTranslatorQp
+** Delegate: ResultTranslatorXqueryImpl – implements results translation by applying an xquery file to the marshaled XML results.  Xquery files are stored within the MDR and can be referenced by path. The path to the MDR file is given as part of initialization.
+* FinalizerQp
+** Delegate: FinalizerMock – does nothing but finish the query
 
 Technologies
 ------------
