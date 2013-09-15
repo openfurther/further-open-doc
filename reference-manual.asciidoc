@@ -248,6 +248,18 @@ OpenFurther uses XQuery code to translate platform-specific result sets to the O
 
 image:images/figures/result_translation.png[]
 
+Creating metadata in the MDR
+++++++++++++++++++++++++++++
+Translations depend on the MDR for attribute-to-attribute translations.  The MDR is supported by an abstract data model where metadata "things" are Assets (see the FMDR.ASSET table), including data classes and class attributes.  There are other Asset supporting tables ASSET_VERSION and ASSET_RESOURCE that you can ignore for now, for this, as they are not currently used for this purpose.  There are, however, two other tables that are critical, ASSET_ASSOC (association) and ASSET_ASSOC_PROP (association properties).  ASSET, ASSET_ASSOC, and ASSET_ASSOC_PROP work together to describe attribute-to-attribute translation mappings.
+
+.Attribute-attribute mapping instructions
+1. Create a namespace - a namespace is itself an Asset of Asset type namespace (see other namespace Assets for examples. For demonstration purposes we will call it MyNamespace 
+2. Create a class in MyNamespace - this is done by creating another Asset that is of type Physical Class.
+3. Create the class attributes in MyNamespace - this is done creating Assets that are of type Class Attribute.
+4. Associate all of the class attributes with your class by creating an Asset Association (ASSET_ASSOC) to create the facts myPhysicalClass hasAttribute myClassAttribute for each of the attributes previously created.
+5. Attribute-to-attribute mappings are mapped together in a similar way, through the Asset Association, by associating attribute Assets with other attribute Assets.  In this case we would want to map your newly created attributes with the OpenFurther model attributes, say OpenFurther.Person.dateOfBirth to myPerson.birthDate.  And by the way, the direction of this relationship is crucial, LS=left side, RS=right side, so that OpenFurther.Person.dateOfBirth (right side) maps to myPerson.birthDate (left side) using the association "translatesTo". The view ASSET_ASSOC_V illustrates existing mappings.
+6. Create attribute-to-attribute translation properties - translation associations (and other associations) can have properties (in ASSET_ASSOC_PROP) that describe the translation mapping requirements. For example, some properties may direct a data type conversion such as int to string, while others may declare a function that needs to be used for a functional conversion, or even an instruction to not change an attribute name. Properties are created via the ASSET_ASSOC_PROP table and are associated to ASSET_ASSOC records.
+
 
 Technologies
 ------------
