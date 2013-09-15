@@ -1,3 +1,13 @@
 #!/bin/sh
 
-a2x -fpdf -a docinfo -a version=1.4.0-SNAPSHOT --fop --icons --icons-dir=./images/icons/ reference-manual.asciidoc
+case "$1" in
+"fop")
+    a2x -v -fpdf -a docinfo --fop --icons --icons-dir=./images/icons/ reference-manual.asciidoc
+    ;;
+"dblatex")
+    a2x -v -fpdf -a docinfo --dblatex-opts='-V -T db2latex -I ./images/icons -P latex.output.revhistory=0' reference-manual.asciidoc
+    ;;
+*)
+    echo "Choose 'dblatex' or 'fop' as output generator."
+    ;;
+esac
