@@ -325,7 +325,7 @@ Federated Query Engine (FQE)
 Federated Query Language (FQL)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-All queries sent to OpenFurther are constructed using FQL. FQL is an object oriented query language expressed in XML that is largely based off of the Hibernate Criteria API. 
+All queries sent to OpenFurther are constructed using FQL. FQL is an object oriented query language expressed in XML that is largely based off of the http://docs.jboss.org/hibernate/orm/3.3/reference/en/html/querycriteria.html[Hibernate Criteria API]. 
 
 Root Object
 ^^^^^^^^^^^
@@ -607,6 +607,29 @@ Collection Expressions
     </parameters>
 </criteria>
 ----
+
+FQL to Hibernate Criteria
+^^^^^^^^^^^^^^^^^^^^^^^^^
+Since FQL is largely based on Hibernate Criteria objects, it's possible to convert an FQL query into Hibernate Criteria that will then allow Hibernate to convert that into SQL.
+
+Converting an FQL is very simple.
+
+1. Using JAXB, unmarshal the XML into a SearchQueryTo.
+2. Locate the root hibernate entity class (typically Person or Patient) <Root Entity>
+3. Call the QueryBuilder class like below
+
+.Converting FQL to Hibernate Criteria
+[source,java,numbered]
+----
+final GenericCriteria hibernateCriteria = 
+	QueryBuilderHibernateImpl.convert(CriteriaType.CRITERIA, <Root 
+		Entity>.class, sessionFactory, searchQuery);
+----
+
+FQL Schema
+^^^^^^^^^^
+.FQL Schema
+image::images/figures/search_query_xsd.png[]
 
 Technologies
 ------------
