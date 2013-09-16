@@ -319,6 +319,295 @@ Each Query Processor has a Delegate implementation that contains the business lo
 * FinalizerQp
 ** Delegate: FinalizerMock – does nothing but finish the query
 
+Federated Query Engine (FQE)
+----------------------------
+
+Federated Query Language (FQL)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All queries sent to OpenFurther are constructed using FQL. FQL is an object oriented query language expressed in XML that is largely based off of the Hibernate Criteria API. 
+
+Root Object
+^^^^^^^^^^^
+FQL queries are constructed against a given data model, for instance, the OpenFurther model. Every query is centered around a given object. This is called the root object. For instance, when querying for persons with a particular diagnosis, the root object would be Person.
+
+You declare the root object as an attribute of the <query> tag
+
+.Declaring a root object
+[source,xml,numbered]
+----
+<query xmlns="http://further.utah.edu/core/query" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	rootObject="Person">
+	....
+</query>
+----
+
+Query Attributes
+^^^^^^^^^^^^^^^^
+FQL query attributes are simply the field names (instance variables) of the root object you're querying against. If you're familiar with SQL, you can think of query attributes like database columns.
+
+For instance, in the following Person class, you could use 'compositeId', 'administrativeGenderNamespaceId', and 'administrativeGender' are all query attributes that can be used in FQL.
+
+.Java root object fields
+[source,java,numbered]
+----
+public class Person implements PersistentEntity<PersonId>
+{
+
+	@Column(name = "FPERSON_COMPOSITE_ID")
+	private String compositeId;
+
+	@Column(name = "administrative_gender_nmspc_id")
+	private Long administrativeGenderNamespaceId;
+
+	@Column(name = "administrative_gender_cid")
+	private String administrativeGender;
+
+	....
+
+}
+----
+
+FQL Reference
+^^^^^^^^^^^^^
+
+Simple Expressions
+++++++++++++++++++
+
+.EQ - Equals
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>SIMPLE</searchType>
+    <parameters>
+        <parameter>EQ</parameter>
+        <parameter>DiagnosisGrouping.codeSequenceNumber</parameter>
+        <parameter>766.2</parameter>
+    </parameters>
+</criteria>
+----
+
+.NE - Not Equals
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>SIMPLE</searchType>
+    <parameters>
+        <parameter>NE</parameter>
+        <parameter>Lab.value</parameter>
+        <parameter>1234</parameter>
+    </parameters>
+</criteria>
+----
+
+.GT - Greater Than
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>SIMPLE</searchType>
+    <parameters>
+        <parameter>GT</parameter>
+        <parameter>Lab.reading</parameter>
+        <parameter>1234</parameter>
+    </parameters>
+</criteria>
+----
+
+.LT - Less Than
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>SIMPLE</searchType>
+    <parameters>
+        <parameter>LT</parameter>
+        <parameter>Lab.reading</parameter>
+        <parameter>1234</parameter>
+    </parameters>
+</criteria>
+----
+
+.LE - Less Than or Equal
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>SIMPLE</searchType>
+    <parameters>
+        <parameter>LE</parameter>
+        <parameter>Lab.reading</parameter>
+        <parameter>1234</parameter>
+    </parameters>
+</criteria>
+----
+
+.GE - Greater Than or Equal
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>SIMPLE</searchType>
+    <parameters>
+        <parameter>GE</parameter>
+        <parameter>Lab.reading</parameter>
+        <parameter>1234</parameter>
+    </parameters>
+</criteria>
+----
+
+Unary Expressions
++++++++++++++++++
+
+.NOT - Negation
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>NOT</searchType>
+    <parameters/>
+    <criteria>
+        ...
+    </critera>
+</criteria>
+----
+
+Multinary Expressions
++++++++++++++++++++++
+
+.Conjunction - a conjunction between two or more expressions
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>CONJUNCTION</searchType>
+    <parameters/>
+    <criteria>
+        ...
+    </criteria>
+    <criteria>
+        ...
+    </criteria>
+    <criteria>
+        ...
+    </criteria>
+</criteria>
+----
+
+.Disjunction - a disjunction between two or more expressions
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>DISJUNCTION</searchType>
+    <parameters/>
+    <criteria>
+        ...
+    </criteria>
+    <criteria>
+        ...
+    </criteria>
+    <criteria>
+        ...
+    </criteria>
+</criteria>
+----
+
+Interval Expressions
+++++++++++++++++++++
+
+.Between
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>BETWEEN</searchType>
+    <parameters>
+        <parameter>Observation.observationValue</parameter>
+        <parameter>1</parameter>
+        <parameter>2</parameter>
+    </parameters>
+</criteria>
+----
+
+String Expressions
+++++++++++++++++++
+
+.Like - Contains the value
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>LIKE</searchType>
+    <parameters>
+        <parameter xsi:type="xs:string">Observation.observation</parameter>
+        <parameter xsi:type="xs:string">250</parameter>
+    </parameters>
+    <options>
+        <matchType>CONTAINS</matchType>
+        <ignoreCase>false</ignoreCase>
+    </options>
+</criteria>
+----
+
+.Like - Exact match of the value
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>LIKE</searchType>
+    <parameters>
+        <parameter xsi:type="xs:string">Observation.observation</parameter>
+        <parameter xsi:type="xs:string">250</parameter>
+    </parameters>
+    <options>
+        <matchType>EXACT</matchType>
+        <ignoreCase>false</ignoreCase>
+    </options>
+</criteria>
+----
+
+.Like - Value starts with
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>LIKE</searchType>
+    <parameters>
+        <parameter xsi:type="xs:string">Observation.observation</parameter>
+        <parameter xsi:type="xs:string">250</parameter>
+    </parameters>
+    <options>
+        <matchType>STARTS_WITH</matchType>
+        <ignoreCase>false</ignoreCase>
+    </options>
+</criteria>
+----
+
+.Like - Value ends with
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>LIKE</searchType>
+    <parameters>
+        <parameter xsi:type="xs:string">Observation.observation</parameter>
+        <parameter xsi:type="xs:string">250</parameter>
+    </parameters>
+    <options>
+        <matchType>ENDS_WITH</matchType>
+        <ignoreCase>false</ignoreCase>
+    </options>
+</criteria>
+----
+
+Collection Expressions
+++++++++++++++++++++++
+
+.In - Value(s) is within set
+[source,xml,numbered]
+----
+<criteria>
+    <searchType>IN</searchType>
+    <parameters>
+        <parameter xsi:type="xs:string">Observation.observation</parameter>
+        <parameter xsi:type="xs:string">401.1</parameter>
+        <parameter xsi:type="xs:string">401.2</parameter>
+        <parameter xsi:type="xs:string">401.3</parameter>
+    </parameters>
+</criteria>
+----
+
 Technologies
 ------------
 OpenFurther is built on a number of Open Source technologies
