@@ -77,11 +77,11 @@ image::images/figures/data_source_adapters.png[]
 
 Terminology Server
 ~~~~~~~~~~~~~~~~~~
-OpenFurther utilizes a terminology server (currently from Apelon DTS) to resolve the differences between coded values. This terminology server is responsible for storing the codes for standards as well as mappings between standards. It is also utilized to store data source specific codes (local codes) and mappings to standard namespaces (ICD9, SNOMED, CPT, etc)
+OpenFurther utilizes Apelon's Distributed Terminology System version 3.5.2.203 (aka. DTS) for terminology related functionality. The OpenFurther instance of DTS contains concepts from the standard terminologies SNOMED-CT, ICD-9, RxNorm, and UCUM. There are also non-standard terminologies (aka Local) for each of the data sources as well as associated mappings. The use of standard terminologies and mappings make it possible for the software to resolve differences between concepts in various data sources and achieve a degree of semantic interoperability. Use of Apelon DTS is an assumption of agreement to the Apache Version 2 standard open source license agreement http://www.apache.org/licenses/LICENSE-2.0.html. For more information about Apelon DTS please see their website http://www.apelon.com.
 
-Apelon DTS
-^^^^^^^^^^
-The Apelon DTS (Distributed Terminology System) is an integrate set of open source components that provides comprehensive terminology services in distributed application environments.
+Features of Apelon DTS
+^^^^^^^^^^^^^^^^^^^^^^
+The Apelon DTS (Distributed Terminology System) is an integrated set of open source components that provides comprehensive terminology services in distributed application environments.
 
 DTS Supports national and international data standards, which are a necessary foundation for comparable and interoperable health information, as well as local vocabularies.
 
@@ -89,7 +89,7 @@ DTS consists of
 
 * DTS Core - the core system, database, api, etc
 * DTS Editor - a GUI interface for viewing, adding, and editing concepts
-* Dts Browser - a web interface for viewing concepts
+* DTS Browser - a web interface for viewing concepts
 * Modular Classifier - allows for extending standard ontologies
 
 The Metadata Repository (MDR)
@@ -111,48 +111,66 @@ Terminology
 
 Getting Started
 ~~~~~~~~~~~~~~~
-In order to utilize the OpenFurther software, it is necessary to have terminology mappings from your desired data sources to standard terminologies. OpenFurther's i2b2 front end user interface contains an ontology based off of the recommendations of the Healthcare Information Technology Standards Panel(HITSP). For instance, HITSP recommends the use of ICD-9 codes for diagnosis and LOINC for laboratory data. These standard codes are then translated via the software, terminology server, and associated mappings to be able to resolve to a local data source's codes/terms. OpenFurther uses Apelon INC's Distributed Terminology System (DTS). It is recommended to outside organizations that desire to use the OpenFurther software to consider resourcing a dedicated terminologist or someone that has experience with controlled vocabularies and ontologies to work on managing/mapping local vocabularies/codes to their specific implementation of OpenFurther.
+In order to utilize the OpenFurther software, it is necessary to have terminology mappings from your desired data sources to standard terminologies. These standard codes are then translated via the software, terminology server, and associated mappings to be able to resolve to a local data source's codes/terms.
+
+IMPORTANT: It is important to note that the content distributed with OpenFurther is for demonstration purposes only. The standard terminologies have been provided with permission via Apelon's distribution of free subscription content available on their open source website link:http://apelon-dts.sourceforge.net/[]. This standard content is several years out of date and would not be the most suitable for a real world instance.  
+
+TIP: It is recommended for organizations that desire to use the OpenFurther software to consider resourcing a dedicated terminologist or someone that has experience with controlled vocabularies and ontologies to work on managing/mapping local vocabularies/codes to their specific implementation of OpenFurther.
+
+Apelon provides a content delivery subscription service at a reasonable cost. Standard terminologies can also be downloaded from the U.S. National Library of Medicine Unified Medical Language System (link: http://www.nlm.nih.gov/research/umls/[UMLS]) after meeting and accepting their requirements and license agreements. 
+
+NOTE: The local vocabularies have been mapped to the best possible matches to the available standard terminologies. However, in some cases such as OpenMRS, local concepts had to be created to fit the OpenFurther demonstration scenario.  Any creation of local concepts was done in best accordance of the specifications provided by the source. 
+
+OpenFurther's i2b2 front end user interface contains an ontology based off of the recommendations of the Healthcare Information Technology Standards Panel (HITSP). For instance, HITSP recommends the use of ICD-9 codes for diagnosis and LOINC for laboratory data. Please note that because of licensing agreements, not all of the HITSP recommendations could be followed for OpenFurther. For example, HITSP recommends the use of CPT for procedures. In OpenFurther, procedures will be based off the SNOMED CT hierarchy for procedures.
 
 Why are mappings needed?
 ^^^^^^^^^^^^^^^^^^^^^^^
-Mappings are needed because of the variations in terminology used between disparate data sources.
+Mappings are needed because of the variations in terminology used between disparate data sources. Mappings equate concepts that are intended to mean the same thing. 
+
+TIP: Mapping can be a very human labor intensive task. Mappings must be verified and tested to ensure quality of results. Involving subject matter experts and collaborating effectively across datasources will be paramount to achieving a successful implementation of terminology.
 
 .Mapping Terminology
 image::images/figures/mapping_terminology.png[]
 
 Initial Steps
 ^^^^^^^^^^^^^
-Apelon DTS provides excellent documentation and examples of how to use their terminology server software. All Apelon documentation can be found here http://apelon-dts.sourceforge.net/documents.html
+Apelon DTS provides excellent documentation and examples of how to use their terminology server software. All Apelon documentation can be found at: http://apelon-dts.sourceforge.net/documents.html
+
+IMPORTANT: It is highly recommended that you familiarize yourself with the basic use of the Apelon DTS software. The instance included in OpenFurther can serve as an example of how the OpenFurther team has used Apelon DTS but the best instruction on how to use Apelon DTS is provided directly from Apelon. 
 
 Local Namespaces
 ++++++++++++++++
-Refer to page 67 of the Apelon documentation.
+Refer to page http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#62[62] of the Apelon DTS Editor documentation.
 
 Authorities
 +++++++++++
-Refer to page 72 of the Apelon documentation.
+Refer to page http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#72[72] of the Apelon DTS Editor documentation.
 
 Association Types
 +++++++++++++++++
-Refer to pages 75-77 of the Apelon documentation.
+Refer to pages http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#75[75-77] of the Apelon DTS Editor documentation.
 
 Association Qualifier Types
 +++++++++++++++++++++++++++
-Refer to pages 80-84 of the Apelon documentation.
+Refer to pages http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#80[80-84] of the Apelon DTS Editor documentation.
 
 Property Types
 ++++++++++++++
-Refer to pages 94-96 of the Apelon documentation.
+Refer to pages http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#94[94-96] of the Apelon DTS Editor documentation.
 
 Property Qualifier Types
 ++++++++++++++++++++++++
-Refer to pages 99-101 of the Apelon documentation.
+Refer to pages http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#99[99-101] of the Apelon DTS Editor documentation.
 
 Adding new concepts/terms, assign properties, assosciations/mappings
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Refer to pages 119-141 of the Apelon documentation.
+Refer to pages http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#119[119-141] of the Apelon DTS Editor documentation.
 
-Also refer to the import wizard plugin http://sourceforge.net/apps/trac/apelon-dts/raw-attachment/wiki/MiscWikiFiles/importwizarduserguide-3.0.pdf
+Bulk loading and working with spreadsheets
+++++++++++++++++++++++++++++++++++++++++++
+
+Refer to the import wizard plugin http://sourceforge.net/apps/trac/apelon-dts/raw-attachment/wiki/MiscWikiFiles/importwizarduserguide-3.0.pdf[user guide]
+
 
 Metadata Repository (MDR)
 -------------------------
@@ -184,6 +202,7 @@ By default, Apelon DTS reserves certain identifiers for use with standard termin
 |SNOMED CT  |30
 |ICD-9      |10
 |LOINC      |5102
+|RxNorm     |1552
 |======================
 
 Example input and output
