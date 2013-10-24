@@ -92,20 +92,6 @@ DTS consists of
 * DTS Browser - a web interface for viewing concepts
 * Modular Classifier - allows for extending standard ontologies
 
-The Metadata Repository (MDR)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The MDR is responsible for storing information (artifacts) about varying data sources. This includes things like data models, attributes, attribute types, etc. It is accessed using web services.
-
-* Home grown but follows standards
-** XMI, Dublin Core
-** HL7 datatypes, CDA, DDI
-* Stores artifacts
-** Logical models (UML), local models (UML), model mappings
-** Administrative information
-** Descriptive information
-* Models supported
-** OMOP, i2b2, local models
-
 Terminology
 -----------
 
@@ -171,6 +157,20 @@ Bulk loading and working with spreadsheets
 
 Refer to the import wizard plugin http://sourceforge.net/apps/trac/apelon-dts/raw-attachment/wiki/MiscWikiFiles/importwizarduserguide-3.0.pdf[user guide]
 
+
+The Metadata Repository (MDR)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The MDR is responsible for storing information (artifacts) about varying data sources. This includes things like data models, attributes, attribute types, etc. It is accessed using web services.
+
+* Home grown but follows standards
+** XMI, Dublin Core
+** HL7 datatypes, CDA, DDI
+* Stores artifacts
+** Logical models (UML), local models (UML), model mappings
+** Administrative information
+** Descriptive information
+* Models supported
+** OMOP, i2b2, local models
 
 Metadata Repository (MDR)
 -------------------------
