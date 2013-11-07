@@ -280,10 +280,18 @@ Translations depend on the MDR for attribute-to-attribute translations.  The MDR
 [NOTE]
 The MDR is configured with Java class and field names, rather than database table and attribute names.
 
+There are 3 phases to configure a new data source for the MDR.
+
+.Phase 1
 The first thing that should happen is to create a Mapping of the FURTHER model to your local data model.
 Use this Excel file as an example:
+(Click on the Raw Link to save the file)
 
-include::files/OpenMRS_Mappings_Demo.xls[]
+https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Mappings_Demo.xls
+
+.Phase 2
+Configure your local data source for the MDR.
+You should have a good understanding of the following MDR data model before proceeding.
 
 .MDR ERD Diagram
 image::images/figures/fmdr.png[MDR ERD Diagram]
@@ -291,10 +299,13 @@ image::images/figures/fmdr.png[MDR ERD Diagram]
 // Here is just One way of having a blank line with asciiDoc
 {empty} +
 
-.Attribute-attribute mapping instructions
-// Literal Block, since the numbers are not coming out correctly
-// Literal Block looks funny also, so commented out.
-// ....
+Use this Excel file as an example:
+(Click on the Raw Link to save the file)
+
+https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Asset_Demo.xls
+
+The Excel File's Instructions Tab contains these following steps:
+
 1. Create a namespace - a namespace is itself an Asset of Asset type namespace (see other namespace Assets for examples. For demonstration purposes we will call it MyNamespace
 [source,sql]
 insert into fmdr.asset 
@@ -318,8 +329,15 @@ This Asset ID will be used to create your classes.
 5. Attribute-to-attribute mappings are mapped together in a similar way, through the Asset Association, by associating attribute Assets with other attribute Assets.  In this case we would want to map your newly created attributes with the OpenFurther model attributes, say OpenFurther.Person.dateOfBirth to myPerson.birthDate.  And by the way, the direction of this relationship is crucial, LS=left side, RS=right side, so that OpenFurther.Person.dateOfBirth (right side) maps to myPerson.birthDate (left side) using the association "translatesTo". The view ASSET_ASSOC_V illustrates existing mappings.
 6. Create attribute-to-attribute translation properties - translation associations (and other associations) can have properties (in ASSET_ASSOC_PROP) that describe the translation mapping requirements. For example, some properties may direct a data type conversion such as int to string, while others may declare a function that needs to be used for a functional conversion, or even an instruction to not change an attribute name. Properties are created via the ASSET_ASSOC_PROP table and are associated to ASSET_ASSOC records.
 
-// ....
-// End Literal Block
+.Phase 3
+Configure Asset Associations and Properties
+
+Use this Excel file as an example:
+(Click on the Raw Link to save the file)
+
+https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Assoc_Demo.xls
+
+Follow the "Instructions" tab in the Excel File.
 
 Data Source Adapters
 --------------------
