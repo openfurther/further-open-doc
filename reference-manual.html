@@ -1,0 +1,1989 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<title>OpenFurther Reference Documentation</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>OpenFurther Reference Documentation</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_about">About</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The following documentation applies to <strong>OpenFurther version 1.4.0-SNAPSHOT</strong></p></div>
+<div class="sect2">
+<h3 id="_conventions">Conventions</h3>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">A note</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">An important point</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">A tip</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">A warning</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">A point of caution</td>
+</tr></table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>OpenFurther is an informatics platform that supports federation and integration of data from heterogeneous and disparate data sources.</p></div>
+<div class="paragraph"><p>It has been deployed at the University of Utah (UU) as the Federated Utah Research and Translational Health e-Repository (FURTHeR) since August 2011 and is available for use by all U of U employees and students. OpenFurther links heterogeneous data types, including clinical, public health, biospecimen and patient-generated data; empowering researchers with the ability to assess feasibility of particular clinical research studies, export biomedical datasets for analysis, and create aggregate databases for comparative effectiveness research. With the ability to link unique individuals from these sources, OpenFurther is able to identify cohorts for clinical research.</p></div>
+<div class="paragraph"><p>It provides semantic and syntactic interoperability as it federates health information on-the-fly and in real-time and requires neither data extraction nor homogenization by data source partners, facilitating integration by retaining data in their native format and in their originating systems.</p></div>
+<div class="paragraph"><p>OpenFurther is built upon Maven, Spring, Hibernate, ServiceMix, and other open source frameworks that promote OpenFurther&#8217;s code reusability and interoperability.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_architecture">Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Loosely, OpenFurther runs as a multi-tier application. The presentation layer or front end/user-interface is served (currently) through the i2b2 web client. The logic layer is served through the ServiceMix ESB, and the database layer is served using Oracle 11g, although it can be configured for other databases as well.</p></div>
+<div class="sect2">
+<h3 id="_user_interface">User Interface</h3>
+<div class="paragraph"><p>OpenFurther utilizes the i2b2 web client as a front-end for querying data. The user interface has been modified to support federated querying.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/i2b2_ui_query_results.png" alt="images/figures/i2b2_ui_query_results.png" />
+</div>
+<div class="title">Figure 1. Customized i2b2 User Interface</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hooking_openfurther_into_i2b2">Hooking OpenFurther into i2b2</h3>
+<div class="paragraph"><p>OpenFurther utilizes a Java Servlet Filter to divert query requests to the OpenFurther backend system. The Servlet filter looks for XML messages from i2b2 that indicate a query is being run. Those XML messages are then diverted to OpenFurther where OpenFurther converts them into a OpenFurther query and runs them. All other XML messages are ignored and i2b2 is allowed to run as normal.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content"><strong>No data is stored within i2b2, all data resides within its original location</strong></td>
+</tr></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_federated_query_engine_fqe">The Federated Query Engine (FQE)</h3>
+<div class="paragraph"><p>In OpenFurther, the term "FQE" (Federated Query Engine) is broadly referred to as the set of software modules involved in the execution of a federated query.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/fqe.png" alt="images/figures/fqe.png" />
+</div>
+<div class="title">Figure 2. Federated Query Engine</div>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+A federated query written in FQL (an XML based query language) or an i2b2 query is submitted at <strong>1</strong>.
+</p>
+</li>
+<li>
+<p>
+Utilizing the publish-subscribe pattern, one or more data source adapters are subscribed to the Query Topic at <strong>2</strong>.
+</p>
+</li>
+<li>
+<p>
+If the query is an i2b2 query, the FQE converts the i2b2 query to a federated query.
+</p>
+</li>
+<li>
+<p>
+The FQE then posts the query to the Query Topic (<strong>2</strong>) and each listening data source adapter receives a copy of the query.
+</p>
+</li>
+<li>
+<p>
+Each data source adapter runs through a number of steps to initialize, process, and translate a query for a given data source (Explained below).
+</p>
+</li>
+<li>
+<p>
+Throughout the processing, status messages are sent to a Status Queue at <strong>3</strong>.
+</p>
+</li>
+<li>
+<p>
+Once results are translated to a common model, they are persisted to the In-Memory database and result count is sent to <strong>4</strong>.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_data_source_adapters">Data Source Adapters</h3>
+<div class="paragraph"><p>Data source adapters are facades around an existing data source. Data source adapters can be entirely custom for any given implementation or they can use a pre-written adapter if their data source is already in a well-known format such as OMOP, i2b2, OpenEMR, etc</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/data_source_adapters.png" alt="images/figures/data_source_adapters.png" />
+</div>
+<div class="title">Figure 3. Data Source Adapters</div>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+Data source adapters follow the chain-of-responsibility pattern. The process of adapting a query is broken down into several small steps and each output is passed on to the next step. Data source adapters typically have 4 commons steps.
+</p>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+They are given an initialization step which allows them to determine whether or not the given data source can answer the given query. It also provides for any other initialization required throughout the process.
+</p>
+</li>
+<li>
+<p>
+Query translation translates the logical FQL that is not specific to any data source into data source specific language. This will vary with data sources. Some data sources will utilize SQL, other’s might be a web service. It utilizes the Metadata Repository (MDR) for translating attributes and values (e.g. logical query uses Gender but actual data source uses Sex as the attribute). It also utilizes DTS (Terminology Server) to translate from a given code (e.g. ICD9 250) to the data source’s code (e.g. 12345)
+</p>
+</li>
+<li>
+<p>
+The query is executed against the data source and results are returned in their native format (SQL ResultSet, XML, etc).
+</p>
+</li>
+<li>
+<p>
+Result translations translates the results into a common model with standardized vocabulary/terminology utilizing the Metadata Repository (MDR) and DTS (Terminology Server).
+</p>
+</li>
+</ol></div>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_terminology_server">Terminology Server</h3>
+<div class="paragraph"><p>OpenFurther utilizes Apelon&#8217;s Distributed Terminology System version 3.5.2.203 (aka. DTS) for terminology related functionality. The OpenFurther instance of DTS contains concepts from the standard terminologies SNOMED-CT, ICD-9, RxNorm, and UCUM. There are also non-standard terminologies (aka Local) for each of the data sources as well as associated mappings. The use of standard terminologies and mappings make it possible for the software to resolve differences between concepts in various data sources and achieve a degree of semantic interoperability. Use of Apelon DTS is an assumption of agreement to the Apache Version 2 standard open source license agreement <a href="http://www.apache.org/licenses/LICENSE-2.0.html">http://www.apache.org/licenses/LICENSE-2.0.html</a>. For more information about Apelon DTS please see their website <a href="http://www.apelon.com">http://www.apelon.com</a>.</p></div>
+<div class="sect3">
+<h4 id="_features_of_apelon_dts">Features of Apelon DTS</h4>
+<div class="paragraph"><p>The Apelon DTS (Distributed Terminology System) is an integrated set of open source components that provides comprehensive terminology services in distributed application environments.</p></div>
+<div class="paragraph"><p>DTS Supports national and international data standards, which are a necessary foundation for comparable and interoperable health information, as well as local vocabularies.</p></div>
+<div class="paragraph"><p>DTS consists of</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+DTS Core - the core system, database, api, etc
+</p>
+</li>
+<li>
+<p>
+DTS Editor - a GUI interface for viewing, adding, and editing concepts
+</p>
+</li>
+<li>
+<p>
+DTS Browser - a web interface for viewing concepts
+</p>
+</li>
+<li>
+<p>
+Modular Classifier - allows for extending standard ontologies
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_terminology">Terminology</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getting_started">Getting Started</h3>
+<div class="paragraph"><p>In order to utilize the OpenFurther software, it is necessary to have terminology mappings from your desired data sources to standard terminologies. These standard codes are then translated via the software, terminology server, and associated mappings to be able to resolve to a local data source&#8217;s codes/terms.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">It is important to note that the content distributed with OpenFurther is for demonstration purposes only. The standard terminologies have been provided with permission via Apelon&#8217;s distribution of free subscription content available on their open source website <a href="http://apelon-dts.sourceforge.net/">http://apelon-dts.sourceforge.net/</a>. This standard content is several years out of date and would not be the most suitable for a real world instance.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">It is recommended for organizations that desire to use the OpenFurther software to consider resourcing a dedicated terminologist or someone that has experience with controlled vocabularies and ontologies to work on managing/mapping local vocabularies/codes to their specific implementation of OpenFurther.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>Apelon provides a content delivery subscription service at a reasonable cost. Standard terminologies can also be downloaded from the U.S. National Library of Medicine Unified Medical Language System (link: <a href="http://www.nlm.nih.gov/research/umls/">UMLS</a>) after meeting and accepting their requirements and license agreements.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">The local vocabularies have been mapped to the best possible matches to the available standard terminologies. However, in some cases such as OpenMRS, local concepts had to be created to fit the OpenFurther demonstration scenario.  Any creation of local concepts was done in best accordance of the specifications provided by the source.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>OpenFurther&#8217;s i2b2 front end user interface contains an ontology based off of the recommendations of the Healthcare Information Technology Standards Panel (HITSP). For instance, HITSP recommends the use of ICD-9 codes for diagnosis and LOINC for laboratory data. Please note that because of licensing agreements, not all of the HITSP recommendations could be followed for OpenFurther. For example, HITSP recommends the use of CPT for procedures. In OpenFurther, procedures will be based off the SNOMED CT hierarchy for procedures.</p></div>
+<div class="sect3">
+<h4 id="_why_are_mappings_needed">Why are mappings needed?</h4>
+<div class="paragraph"><p>Mappings are needed because of the variations in terminology used between disparate data sources. Mappings equate concepts that are intended to mean the same thing.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">Mapping can be a very human labor intensive task. Mappings must be verified and tested to ensure quality of results. Involving subject matter experts and collaborating effectively across datasources will be paramount to achieving a successful implementation of terminology.</td>
+</tr></table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/mapping_terminology.png" alt="images/figures/mapping_terminology.png" />
+</div>
+<div class="title">Figure 4. Mapping Terminology</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_initial_steps">Initial Steps</h4>
+<div class="paragraph"><p>Apelon DTS provides excellent documentation and examples of how to use their terminology server software. All Apelon documentation can be found at: <a href="http://apelon-dts.sourceforge.net/documents.html">http://apelon-dts.sourceforge.net/documents.html</a></p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">It is highly recommended that you familiarize yourself with the basic use of the Apelon DTS software. The instance included in OpenFurther can serve as an example of how the OpenFurther team has used Apelon DTS but the best instruction on how to use Apelon DTS is provided directly from Apelon.</td>
+</tr></table>
+</div>
+<div class="sect4">
+<h5 id="_local_namespaces">Local Namespaces</h5>
+<div class="paragraph"><p>Refer to page <a href="http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#62">62</a> of the Apelon DTS Editor documentation.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_authorities">Authorities</h5>
+<div class="paragraph"><p>Refer to page <a href="http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#72">72</a> of the Apelon DTS Editor documentation.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_association_types">Association Types</h5>
+<div class="paragraph"><p>Refer to pages <a href="http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#75">75-77</a> of the Apelon DTS Editor documentation.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_association_qualifier_types">Association Qualifier Types</h5>
+<div class="paragraph"><p>Refer to pages <a href="http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#80">80-84</a> of the Apelon DTS Editor documentation.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_property_types">Property Types</h5>
+<div class="paragraph"><p>Refer to pages <a href="http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#94">94-96</a> of the Apelon DTS Editor documentation.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_property_qualifier_types">Property Qualifier Types</h5>
+<div class="paragraph"><p>Refer to pages <a href="http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#99">99-101</a> of the Apelon DTS Editor documentation.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_adding_new_concepts_terms_assign_properties_assosciations_mappings">Adding new concepts/terms, assign properties, assosciations/mappings</h5>
+<div class="paragraph"><p>Refer to pages <a href="http://apelon-dts.sourceforge.net/3.5/docs/dtseditor.pdf#119">119-141</a> of the Apelon DTS Editor documentation.</p></div>
+</div>
+<div class="sect4">
+<h5 id="_bulk_loading_and_working_with_spreadsheets">Bulk loading and working with spreadsheets</h5>
+<div class="paragraph"><p>Refer to the import wizard plugin <a href="http://sourceforge.net/apps/trac/apelon-dts/raw-attachment/wiki/MiscWikiFiles/importwizarduserguide-3.0.pdf">user guide</a></p></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_metadata_repository_mdr">The Metadata Repository (MDR)</h3>
+<div class="paragraph"><p>The MDR is responsible for storing information (artifacts) about varying data sources. This includes things like data models, attributes, attribute types, etc. It is accessed using web services.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Home grown but follows standards
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+XMI, Dublin Core
+</p>
+</li>
+<li>
+<p>
+HL7 datatypes, CDA, DDI
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Stores artifacts
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Logical models (UML), local models (UML), model mappings
+</p>
+</li>
+<li>
+<p>
+Administrative information
+</p>
+</li>
+<li>
+<p>
+Descriptive information
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Models supported
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+OMOP, i2b2, local models
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_metadata_repository_mdr">Metadata Repository (MDR)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_getting_started_2">Getting Started</h3>
+<div class="paragraph"><p>Two important parts of the metadata repository are Query Translation and Result Translation. Data stored within the MDR is used to drive each of these processes.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/translating_metadata.png" alt="images/figures/translating_metadata.png" />
+</div>
+<div class="title">Figure 5. Translating Metadata</div>
+</div>
+<div class="sect3">
+<h4 id="_query_translation">Query Translation</h4>
+<div class="paragraph"><p>The objective of a query translation is to convert the OpenFurther Query Language (FQL) query (OpenFurther&#8217;s classes, attributes, and attribute values) into the physical data source&#8217;s data classes, attributes, and attribute values while maintaining the integrity of the query logic.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/query_translation.png" alt="images/figures/query_translation.png" />
+</div>
+<div class="title">Figure 6. Query Translation</div>
+</div>
+<div class="paragraph"><p>The user interface, currently i2b2, is responsible for building a query. When a query is submitted to the FQE, the FQE converts i2b2&#8217;s query into the FQL, an XML representation of the query (see the FQL XML Schema) that consists of logical expressions using OpenFurther&#8217;s data model classes and attributes.  Class and class attribute names used in FQL are based on OpenFurther classes and attributes and can be found in the OpenFurther&#8217;s Java code located here: <a href="https://github.com/openfurther/further-open-core/tree/master/ds/ds-further/src/main/java/edu/utah/further/ds/further/model/impl/domain">https://github.com/openfurther/further-open-core/tree/master/ds/ds-further/src/main/java/edu/utah/further/ds/further/model/impl/domain</a></p></div>
+<div class="paragraph"><p>Coded class attribute value domains within the OpenFurther model are all based on standard terminology where demographics are SNOMED CT codes, diagnosis are ICD-9 codes, and labs are LOINC codes.  All attributes that have coded values sets also have an associated attribute that ends with the term <em>NamespaceId</em> (namespaces are also called coding systems). This NamespaceId attribute is used to signify what coding system a particular attribute will use. For instance, raceCode=413773004 and raceCodeNamespaceId=30 would signify the SNOMED CT code for the Caucasian race.</p></div>
+<div class="paragraph"><p>By default, Apelon DTS reserves certain identifiers for use with standard terminologys.</p></div>
+<div class="tableblock">
+<table rules="all"
+width="40%"
+frame="hsides"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 1. Apelon DTS Namespace Identifiers</caption>
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Namespace  </th>
+<th align="left" valign="top">Identifier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">SNOMED CT</p></td>
+<td align="left" valign="top"><p class="table">30</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ICD-9</p></td>
+<td align="left" valign="top"><p class="table">10</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">LOINC</p></td>
+<td align="left" valign="top"><p class="table">5102</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">RxNorm</p></td>
+<td align="left" valign="top"><p class="table">1552</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_example_input_and_output">Example input and output</h5>
+<div class="listingblock">
+<div class="title">Example query translation input</div>
+<div class="content"></div></div>
+<div class="paragraph"><p>Given the above input, query translation would generate the following output</p></div>
+<div class="listingblock">
+<div class="title">Example query translation output</div>
+<div class="content"></div></div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_result_translation">Result Translation</h4>
+<div class="paragraph"><p>Each data source queried by OpenFurther will respond with a result set in the platform/database specific format and need to be converted into OpenFurther&#8217;s data model for final analysis and reconciliation of the returned data from each data source, ie. all the pears, oranges, and pineapples need to be converted the same kind of apples. This is the job of the query result set translations, to translate all the query results back to a common/canonical/platform-independent model, or the OpenFurther model in this case.
+OpenFurther uses XQuery code to translate platform-specific result sets to the OpenFurther model implying all data is/must be converted to XML.  Converting to XML is not an extra cost since OpenFurther is a web service-centric infrastructure where messages between services are communicated via XML. Query results are no exception. Data within the MDR drives the XQuery code to translate the data source specific data model and values to the OpenFurther data model and values based on standard terminology. After the XML has been translated the data are unmarshaled back to Java objects, the OpenFurther model Java objects, where/when they are persisted to the query results database (typically the in-memory database) using Hibernate.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/result_translation.png" alt="images/figures/result_translation.png" />
+</div>
+<div class="title">Figure 7. Result Translation</div>
+</div>
+<div class="sect4">
+<h5 id="_creating_metadata_in_the_mdr">Creating metadata in the MDR</h5>
+<div class="paragraph"><p>Translations depend on the MDR for attribute-to-attribute translations.  The MDR is supported by an abstract data model where metadata "things" are Assets (see the FMDR.ASSET table), including data classes and class attributes.  There are other Asset supporting tables ASSET_VERSION and ASSET_RESOURCE that you can ignore for now, as they are not currently used for this purpose.  There are, however, two other tables that are critical, ASSET_ASSOC (association) and ASSET_ASSOC_PROP (association properties).  ASSET, ASSET_ASSOC, and ASSET_ASSOC_PROP work together to describe attribute-to-attribute translation mappings. Assets also represent association types, such as hasAttribute, or translatesTo. The MDR contains metadata used for both Query Translations and Result Translations.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">The MDR is configured using Java class and Java field names, rather than database table and attribute names.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>There are 3 phases to configure a new data source for the MDR.</p></div>
+<div class="paragraph"><div class="title">Phase 1</div><p>The first thing that should happen is to create a Mapping of the FURTHER model to your local data model. This step is generally performed by a Terminologist and has no specific configuration with the MDR, but serves as the business requirements or data dictionary document for configuring the MDR in Phases 2 and 3.</p></div>
+<div class="paragraph"><p>You can use this Excel file as an example:
+(Click on the Raw Link to save the file)</p></div>
+<div class="paragraph"><p><a href="https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Mappings_Demo.xls">https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Mappings_Demo.xls</a></p></div>
+<div class="paragraph"><div class="title">Phase 2</div><p>Configure your local data source for the MDR.</p></div>
+<div class="paragraph"><p>You should have review and have a fair understanding of the following MDR data model before proceeding.</p></div>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/fmdr.png" alt="MDR ERD Diagram" />
+</div>
+<div class="title">Figure 8. MDR ERD Diagram</div>
+</div>
+<div class="paragraph"><p><br /></p></div>
+<div class="paragraph"><p>Use this Excel file as an example:
+(Click on the Raw Link to save the file)</p></div>
+<div class="paragraph"><p><a href="https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Asset_Demo.xls">https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Asset_Demo.xls</a></p></div>
+<div class="paragraph"><p>The Excel File&#8217;s Instructions Tab contains these following high level steps:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Create a namespace - a namespace is itself an Asset of Asset type namespace (see other namespace Assets for examples.
+Retrieve the newly created Asset ID for MyNamespace and use this Asset ID to create your classes and attributes in Steps 2 &amp; 3.
+</p>
+</li>
+<li>
+<p>
+Create a class in MyNamespace - this is done by creating another Asset that is of type Physical Class.
+Retrieve the newly created Asset ID for MyClass and use this Asset ID to create your Class-To-Attributes Associations in Step 4.
+</p>
+</li>
+<li>
+<p>
+Create the class attributes in MyNamespace - this is done by creating Assets that are of type Class Attribute.
+</p>
+</li>
+<li>
+<p>
+Associate all of the class attributes with your class by creating an Asset Association (ASSET_ASSOC) to create the associations myPhysicalClass hasAttribute myClassAttribute for each of the attributes created in Step 3.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><div class="title">Phase 3</div><p>Configure FURTHER to External Data Source Associations and Properties</p></div>
+<div class="paragraph"><p>Use this Excel file as an example:
+(Click on the Raw Link to save the file)</p></div>
+<div class="paragraph"><p><a href="https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Assoc_Demo.xls">https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Assoc_Demo.xls</a></p></div>
+<div class="paragraph"><p>The Excel File&#8217;s Instructions Tab contains these following high level steps:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Configure FURTHER Attribute (Java Field) to External Attribute (Java Field) Associations.
+For example, OpenFurther.Person.dateOfBirth to MyNamespace.myPatient.birthDate. The direction of this relationship is crucial, LS=left side, RS=right side, so that OpenFurther.Person.dateOfBirth (left side) maps to myPerson.birthDate (right side) using the association "translatesTo". The view ASSET_ASSOC_V illustrates existing mappings that are enabled. Note that associations can be "disabled" with a "N" in the asset_assoc.enabled field.
+</p>
+</li>
+<li>
+<p>
+Configure FURTHER Table (Java Class) to External Table (Java Class) Associations.
+For example, OpenFurther.Person to MyNamespace.myPatient. The direction of this relationship is crucial, LS=left side, RS=right side, so that OpenFurther.Person (left side) maps to MyNamespace.myPatient (right side) using the association "translatesTo". The view ASSET_ASSOC_V illustrates existing mappings that are enabled. Note that associations can be "disabled" with a "N" in the asset_assoc.enabled field.
+</p>
+</li>
+<li>
+<p>
+Create translatesTo association translation properties for the above 2 steps.
+Translation associations (and other associations) can have properties (in ASSET_ASSOC_PROP table) that describe the translation mapping requirements. For example, some properties may direct a data type conversion such as int to string, while others may declare a function that needs to be used for a functional conversion, or even an instruction to not change an attribute name. Properties are created via the ASSET_ASSOC_PROP table and are associated to ASSET_ASSOC records.
+</p>
+</li>
+</ol></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">There are two parts to the list of Potential Association Properties. Part One is primaryly used for Query Translations, and part Two is used for Result Translations. Query Translations are much more complex and therefore supports more association properties than Result Translations.</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">Part One (Query Translations)</div><p>There are Normal Scenarios and Special Scenarios for Query Translations.</p></div>
+<div class="paragraph"><div class="title">Normal Scenario 1) Configure for DTS Coded Value Translation with:</div><p>Prop_Name = ATTR_VALUE_TRANS_FUNC</p></div>
+<div class="paragraph"><p>Prop_Val = translateCode</p></div>
+<div class="paragraph"><div class="title">Normal Scenario 2) Configure for Data Type Translation with:</div><p>Prop_Name = ATTR_VALUE_TRANS_TO_DATA_TYPE</p></div>
+<div class="paragraph"><p>Prop_Val = xs:decimal (Or other appropriate valid XML Data Types)</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 2. Java Data Type to XML Data Type Mapping. There may be others not listed here.</caption>
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Java Data Type </th>
+<th align="left" valign="top"> XML Data Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">char or java.lang.Character</p></td>
+<td align="left" valign="top"><p class="table">xs:string</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">byte or java.lang.Byte</p></td>
+<td align="left" valign="top"><p class="table">xs:byte</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">short or java.lang.Short</p></td>
+<td align="left" valign="top"><p class="table">xs:short</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">int or java.lang.Integer</p></td>
+<td align="left" valign="top"><p class="table">xs:int</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">long or java.lang.Long</p></td>
+<td align="left" valign="top"><p class="table">xs:long</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">float or java.lang.Float</p></td>
+<td align="left" valign="top"><p class="table">xs:float</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">double or java.lang.Double</p></td>
+<td align="left" valign="top"><p class="table">xs:double</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">boolean or java.lang.Boolean</p></td>
+<td align="left" valign="top"><p class="table">xs:boolean</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.lang.String</p></td>
+<td align="left" valign="top"><p class="table">xs:string</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.math.BigInteger</p></td>
+<td align="left" valign="top"><p class="table">xs:integer</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.math.BigDecimal</p></td>
+<td align="left" valign="top"><p class="table">xs:decimal</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.util.Calendar</p></td>
+<td align="left" valign="top"><p class="table">xs:dateTime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.util.Date</p></td>
+<td align="left" valign="top"><p class="table">xs:dateTime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">javax.xml.namespace.QName</p></td>
+<td align="left" valign="top"><p class="table">xs:QName</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.net.URI</p></td>
+<td align="left" valign="top"><p class="table">xs:string or xs:anyURI</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">javax.xml.datatype.XMLGregorianCalendar</p></td>
+<td align="left" valign="top"><p class="table">xs:anySimpleType</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">javax.xml.datatype.Duration</p></td>
+<td align="left" valign="top"><p class="table">xs:duration</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.lang.Object</p></td>
+<td align="left" valign="top"><p class="table">xs:anyType</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.awt.Image</p></td>
+<td align="left" valign="top"><p class="table">xs:base64Binary</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">javax.activation.DataHandler</p></td>
+<td align="left" valign="top"><p class="table">xs:base64Binary</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">javax.xml.transform.Source</p></td>
+<td align="left" valign="top"><p class="table">xs:base64Binary</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">java.util.UUID</p></td>
+<td align="left" valign="top"><p class="table">xs:string</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">Normal Scenario 3) Configure 2 properties, Alias_Key and Alias_Value for each Table Association.</div><p>If there are more than one table associations, configure multiple pairs of these properties.</p></div>
+<div class="paragraph"><p>The Prop_Val for ALIAS_KEY can be anything.</p></div>
+<div class="paragraph"><p>For example,</p></div>
+<div class="paragraph"><p>Prop_Name = ALIAS_KEY</p></div>
+<div class="paragraph"><p>Prop_Val = dx</p></div>
+<div class="paragraph"><p>and</p></div>
+<div class="paragraph"><p>The Prop_Val for ALIAS_VALUE needs to be the Java member name from the rootObject (Person Class).</p></div>
+<div class="paragraph"><p>For example,</p></div>
+<div class="paragraph"><p>Prop_Name = ALIAS_VALUE</p></div>
+<div class="paragraph"><p>Prop_Val = conditionEras</p></div>
+<div class="paragraph"><div class="title">Special Scenario 1) Occasionally, there may be some value translations that are non-coded values. For example, if you associate age to birthYear, you will need to special custom XQuery function to perform the translation. In this case, create a function in the XQuery program called ageToBirthYear and configure the MDR with this property.</div><p>Prop_Name = ATTR_VALUE_TRANS_FUNC</p></div>
+<div class="paragraph"><p>Prop_Val = ageToBirthYear</p></div>
+<div class="paragraph"><p>So instead of the normal translateCode in the Prop_Val, we have "ageToBirthYear".</p></div>
+<div class="paragraph"><div class="title">Special Scenario 2) Each Asset Association by default specifies that Left Asset translates to Right Asset. However, if you want to skip this translation without throwing an Error, provide an assocation property with the following. This is mostly used with devNull associations. For example, the FURTHER.PERSON.ID.DATASETID does not translate to anything at the External Data Sources, however, we do not want to consider this as an Error, therefore, we simple skip it from translation processing.</div><p>Prop_Name = ATTR_TRANS_FUNC</p></div>
+<div class="paragraph"><p>Prop_Val = skipAttr</p></div>
+<div class="paragraph"><div class="title">Special Scenario 3) The FURTHER table attribute Obervation.observation is overloaded as Diagnosis, Procedure, and Lab Order. If the FURTHER.Obervation table translates to more then one table at the External Data Source, we must provide this property to assist with Query Translation. This property specifies the type of observation (Diagnosis Procedure, or Lab) in the FURTHER model so we know what kind of data the row is representing. The Prop_Val is the SNOMED code representing the observation type. If the FURTHER.Obervation table translates to ONLY one table at the external data source, we do not need to configure this, but do ensure that the ALIAS_KEY and ALIAS_VALUE properties are configured properly as stated above in Normal Scenario 3. Always start the Prop_Name with “OBSERVATION_TYPE”.</div><p>Note: OBSERVATION_TYPE_DX means Diagnosis.</p></div>
+<div class="paragraph"><p>Prop_Name = OBSERVATION_TYPE_DX</p></div>
+<div class="paragraph"><p>Prop_Val = 439401001</p></div>
+<div class="paragraph"><p>Or</p></div>
+<div class="paragraph"><p>Prop_Name = OBSERVATION_TYPE_LAB</p></div>
+<div class="paragraph"><p>Prop_Val = 364712009</p></div>
+<div class="paragraph"><p>Or</p></div>
+<div class="paragraph"><p>Prop_Name = OBSERVATION_TYPE_PROCEDURE</p></div>
+<div class="paragraph"><p>Prop_Val = 71388002</p></div>
+<div class="paragraph"><div class="title">Special Scenario 4) Sometimes one FURTHER &lt;criteria&gt; node translates to two &lt;criteria&gt; nodes at the External Data Source. For example, FURTHER.Person.race translates to OpenMRS.PersonAttribute.value, where the PersonAttributeType = 1. Therefore, we need one &lt;criteria&gt; for the OpenMRS.PersonAttribute.value and another &lt;criteria&gt; node for OpenMRS.PersonAttribute.PersonAttributeType. What we will do is create an XML Template in the MDR where we will replace a specific &lt;criteria&gt; with the translated criteria. Refer to the example below.</div><p>To configure a XML Template, use this Property:</p></div>
+<div class="paragraph"><p>Prop_Name = MORE_CRITERIA</p></div>
+<div class="paragraph"><p>Prop_Val = {XML Template} (In One Continuous String is better for output format)</p></div>
+<div class="paragraph"><p>Where Prop_Val =</p></div>
+<div class="paragraph"><p>&lt;criteria xmlns="http://further.utah.edu/core/query"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+        &lt;searchType&gt;IN&lt;/searchType&gt;
+        &lt;parameters&gt;
+                &lt;parameter xsi:type="xs:string"&gt;personId&lt;/parameter&gt;
+        &lt;/parameters&gt;
+        &lt;query rootObject="Person" xmlns="http://further.utah.edu/core/query"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+                &lt;rootCriterion&gt;
+                        &lt;searchType&gt;CONJUNCTION&lt;/searchType&gt;
+                        &lt;criteria moreCriteria="ReplaceMe"&gt;&lt;/criteria&gt;
+                        &lt;criteria&gt;
+                                &lt;searchType&gt;SIMPLE&lt;/searchType&gt;
+                                &lt;parameters&gt;
+                                        &lt;parameter xsi:type="RelationType"&gt;EQ&lt;/parameter&gt;
+                                        &lt;parameter xsi:type="xs:string"&gt;pa.personAttributeType&lt;/parameter&gt;
+                                        &lt;parameter xsi:type="xs:long"&gt;1&lt;/parameter&gt;
+                                &lt;/parameters&gt;
+                        &lt;/criteria&gt;
+                &lt;/rootCriterion&gt;
+                &lt;aliases&gt;
+                        &lt;alias associationObject="PersonAttribute"&gt;
+                                &lt;key&gt;pa&lt;/key&gt;
+                                &lt;value&gt;personAttributes&lt;/value&gt;
+                        &lt;/alias&gt;
+                &lt;/aliases&gt;
+        &lt;/query&gt;
+&lt;/criteria&gt;</p></div>
+<div class="paragraph"><div class="title">Special Scenario 5) Sometimes a FURTHER Person Field translates to a non-person table at the external source. Since we do not get &lt;alias&gt; nodes for FURTHER Person Fields, we need to create new alias(es) for these scenarios. For example, FURTHER.Person.vitalStatus translates to OpemMRS.ObservationPeriod.personStatusConceptId field. In this case, use this property configuration:</div><p>Prop_Name = ATTR_ALIAS</p></div>
+<div class="paragraph"><p>Prop_Val = “aliasKey^aliasValue”</p></div>
+<div class="paragraph"><p>Where, Prop_Val = “op^observationPeriods”</p></div>
+<div class="paragraph"><p>Note that duplicate Aliases are removed during the cleanup phase. So having more than one of these configured is ok. However, in order to support ‘AND’ conditions with multiple fields in the SAME table, we need to replace &lt;criteria&gt; with a subquery template using Special Scenario 4 above.</p></div>
+<div class="paragraph"><div class="title">Special Scenario 6) Add Extra Alias for Special Cases</div><p>Sometimes we have an alias that translates to multiple aliases due to hierarchy relationship levels. This EXCLUDES Observation Types Issues. For example, FURTHER.orders table translates to OpenMRS.patient.orders table. Therefore, we need another alias to support the Sub Level. We need the Translated aliases to be like this, where the ord will go through the patient object:</p></div>
+<div class="paragraph"><p>&lt;aliases&gt;
+  &lt;alias associationObject="Observations"&gt;
+    &lt;key&gt;p&lt;/key&gt;
+    &lt;value&gt;patient&lt;/value&gt;
+  &lt;/alias&gt;
+  &lt;alias associationObject="Order"&gt;
+    &lt;key&gt;ord&lt;/key&gt;
+    &lt;value&gt;p.orders&lt;/value&gt;
+  &lt;/alias&gt;
+&lt;/aliases&gt;</p></div>
+<div class="paragraph"><p>Note that for this situation, we DO NOT want to update any parameter alias values in the XML Query file.</p></div>
+<div class="paragraph"><p>Prop_Name = EXTRA_ALIAS</p></div>
+<div class="paragraph"><p>Prop_Val = “aliasKey^aliasValue”</p></div>
+<div class="paragraph"><p>i.e. Prop_Val = “obs^observations”</p></div>
+<div class="paragraph"><p>Note that duplicate Aliases are removed during the cleanup phase. So having more than one of these configured is ok. However, in order to support ‘AND’ conditions with multiple fields in the SAME table, we need to replace &lt;criteria&gt; with a subquery template using Special Scenario 4 above.</p></div>
+<div class="paragraph"><div class="title">Part Two (Result Translations)</div><p>There are Normal Scenarios and Special Scenarios for Result Translations.</p></div>
+<div class="paragraph"><div class="title">Normal Scenario 1) Specify the RESULT_PATH for each External Asset. You can include the XPath Predicate when necessary. The XPath Value begins under the rootObject of the External data model. For example, if the rootObject is Person, and you are trying to get to the gender, use ‘/gender’ as the XPath value. The rootObject ‘/Person’ part is not needed.</div><p>Prop_Name = RESULT_PATH</p></div>
+<div class="paragraph"><p>Prop_Val = {XPath Value to the External XML Node}</p></div>
+<div class="paragraph"><p>For example, Prop_Val =
+/personAttributes/personAttribute/value[../personAttributeType=1]</p></div>
+<div class="paragraph"><div class="title">Normal Scenario 2) Specify the External Root Object’s ID Attribute.</div><p>Generally, this property is set for the {FURTHER.PERSON} to {EXTERNAL.PERSON} association.</p></div>
+<div class="paragraph"><p>Note that we may want to rename this property name to EXT_PERSON_ID_ATTR in the future, since we may want to support multiple root objects in the future.</p></div>
+<div class="paragraph"><p>Prop_Name = EXT_ROOT_ID_ATTR</p></div>
+<div class="paragraph"><p>Prop_Val = {rootObject ID Attribute}</p></div>
+<div class="paragraph"><p>For example, Prop_Val = personId</p></div>
+<div class="paragraph"><p>Be sure to have a One-To-One Mapping for the rootObject. If a One-To-Many mapping is really necessary, specify an additional property with:</p></div>
+<div class="paragraph"><p>Prop_Name = RESULT_SELECTION</p></div>
+<div class="paragraph"><p>Prop_Val = pickMe</p></div>
+<div class="paragraph"><p>Or you can disable the unnessary association by setting the asset_assoc.enabled field to ‘N’.</p></div>
+<div class="paragraph"><div class="title">Special Scenario 3) To skip an attribute from Result Translation, Set the RESULT_PATH property value to “S” (Skip).</div><p>A Result Attribute will automatically be skipped if it has no value, or if the result tag does not exist.</p></div>
+<div class="paragraph"><p>Prop_Name = RESULT_PATH</p></div>
+<div class="paragraph"><p>Prop_Val = S</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_source_adapters_2">Data Source Adapters</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Data source adapters are the pieces of OpenFurther which interact with a data source. Loosely speaking, data source adapters are like plugins. They are simply modules that listen for incoming query requests and act upon them, following a specified protocol. Any programming language that can send and receive messages to a JMS topic, as well as process XML, can be used to program a data source adapter. We do, however, recommend using the existing framework.</p></div>
+<div class="paragraph"><p>Data source adapters follow a standard protocol:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+initialization
+</p>
+</li>
+<li>
+<p>
+query translation
+</p>
+</li>
+<li>
+<p>
+execution
+</p>
+</li>
+<li>
+<p>
+result translation
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>At the end of each step, status messages are sent to a JMS topic. Statuses include the current state of the query and how many results have been processed at that time.</p></div>
+<div class="paragraph"><p>Likewise, every query can be in one of the following states:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+QUEUED
+</p>
+</li>
+<li>
+<p>
+STARTED
+</p>
+</li>
+<li>
+<p>
+EXECUTING
+</p>
+</li>
+<li>
+<p>
+STOPPED
+</p>
+</li>
+<li>
+<p>
+FAILED
+</p>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_java_data_source_adapter_framework">Java Data Source Adapter Framework</h3>
+<div class="paragraph"><p>OpenFurther provides several data source adapters, supported by the community, that run against well known data models. These adapters can be used by downloading the existing adapter, customizing the configuration, compiling them for execution, and installing them into the system.</p></div>
+<div class="paragraph"><p>Additionally, OpenFurther is flexible and also provides the ability to implement your own custom adapter. Reasons for doing this include but are not limited to:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+A custom data model
+</p>
+</li>
+<li>
+<p>
+A custom interface for accessing the data, such as a web service.
+</p>
+</li>
+<li>
+<p>
+Custom processing required beyond the standard processing steps within an adapter.
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_implementing_a_custom_data_source_adapter">Implementing a custom data source adapter</h3>
+<div class="paragraph"><p>We recommend downloading the source code of an existing data source adapter to use as a reference and starting point for your custom data source adapter. Existing data source adapters can found here <a href="https://github.com/openfurther/further-open-datasources">https://github.com/openfurther/further-open-datasources</a></p></div>
+<div class="sect3">
+<h4 id="_query_processors">Query Processors</h4>
+<div class="paragraph"><p>Data source adapters follow a chain-of-responsibility pattern. The query is passed through several processors and each processor is given an opportunity to interact or ignore the data given to it by the processing of previous processors.</p></div>
+<div class="paragraph"><p>There are several default query processors for each step within data source adaption.</p></div>
+<div class="paragraph"><p>Each Query Processor has a Delegate implementation that contains the business logic to implement each processor.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+QueryTranslatorQp
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Delegate: QueryTranslatorXQueryImpl - implements query translator by utilizing an XQuery program which in turns utilizes metadata within the MDR. Xquery files are stored within the MDR and can be referenced by path. The path to the MDR file is given as part of initialization.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+QueryExecutorQp
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Delegate: ExecutorQuestImpl – implements query execution based on the data source type specified by DS_TYPE within initialization. Currently, only database data sources are well supported, however, web services data sources can be implemented with additional effort.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+ResultTranslatorQp
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Delegate: ResultTranslatorXqueryImpl – implements results translation by applying an xquery file to the marshaled XML results.  Xquery files are stored within the MDR and can be referenced by path. The path to the MDR file is given as part of initialization.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+FinalizerQp
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Delegate: FinalizerMock – does nothing but finish the query
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_federated_query_engine_fqe">Federated Query Engine (FQE)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_federated_query_language_fql">Federated Query Language (FQL)</h3>
+<div class="paragraph"><p>All queries sent to OpenFurther are constructed using FQL. FQL is an object oriented query language expressed in XML that is largely based off of the <a href="http://docs.jboss.org/hibernate/orm/3.3/reference/en/html/querycriteria.html">Hibernate Criteria API</a>.</p></div>
+<div class="sect3">
+<h4 id="_root_object">Root Object</h4>
+<div class="paragraph"><p>FQL queries are constructed against a given data model, for instance, the OpenFurther model. Every query is centered around a given object. This is called the root object. For instance, when querying for persons with a particular diagnosis, the root object would be Person.</p></div>
+<div class="paragraph"><p>You declare the root object as an attribute of the &lt;query&gt; tag</p></div>
+<div class="listingblock">
+<div class="title">Declaring a root object</div>
+<div class="content"></div></div>
+</div>
+<div class="sect3">
+<h4 id="_query_attributes">Query Attributes</h4>
+<div class="paragraph"><p>FQL query attributes are simply the field names (instance variables) of the root object you&#8217;re querying against. If you&#8217;re familiar with SQL, you can think of query attributes like database columns.</p></div>
+<div class="paragraph"><p>For instance, in the following Person class, you could use <em>compositeId</em>, <em>administrativeGenderNamespaceId</em>, and <em>administrativeGender</em> are all query attributes that can be used in FQL.</p></div>
+<div class="listingblock">
+<div class="title">Java root object fields</div>
+<div class="content"></div></div>
+</div>
+<div class="sect3">
+<h4 id="_fql_reference">FQL Reference</h4>
+<div class="sect4">
+<h5 id="_simple_expressions">Simple Expressions</h5>
+<div class="listingblock">
+<div class="title">EQ - Equals</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">NE - Not Equals</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">GT - Greater Than</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">LT - Less Than</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">LE - Less Than or Equal</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">GE - Greater Than or Equal</div>
+<div class="content"></div></div>
+</div>
+<div class="sect4">
+<h5 id="_unary_expressions">Unary Expressions</h5>
+<div class="listingblock">
+<div class="title">NOT - Negation</div>
+<div class="content"></div></div>
+</div>
+<div class="sect4">
+<h5 id="_multinary_expressions">Multinary Expressions</h5>
+<div class="listingblock">
+<div class="title">Conjunction - a conjunction between two or more expressions</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">Disjunction - a disjunction between two or more expressions</div>
+<div class="content"></div></div>
+</div>
+<div class="sect4">
+<h5 id="_interval_expressions">Interval Expressions</h5>
+<div class="listingblock">
+<div class="title">Between</div>
+<div class="content"></div></div>
+</div>
+<div class="sect4">
+<h5 id="_string_expressions">String Expressions</h5>
+<div class="listingblock">
+<div class="title">Like - Contains the value</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">Like - Exact match of the value</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">Like - Value starts with</div>
+<div class="content"></div></div>
+<div class="listingblock">
+<div class="title">Like - Value ends with</div>
+<div class="content"></div></div>
+</div>
+<div class="sect4">
+<h5 id="_collection_expressions">Collection Expressions</h5>
+<div class="listingblock">
+<div class="title">In - Value(s) is within set</div>
+<div class="content"></div></div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_fql_to_hibernate_criteria">FQL to Hibernate Criteria</h4>
+<div class="paragraph"><p>Since FQL is largely based on Hibernate Criteria objects, it&#8217;s possible to convert an FQL query into Hibernate Criteria that will then allow Hibernate to convert that into SQL.</p></div>
+<div class="paragraph"><p>Converting an FQL is very simple.</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Using JAXB, unmarshal the XML into a SearchQueryTo.
+</p>
+</li>
+<li>
+<p>
+Locate the root hibernate entity class (typically Person or Patient) &lt;Root Entity&gt;
+</p>
+</li>
+<li>
+<p>
+Call the QueryBuilder class like below
+</p>
+</li>
+</ol></div>
+<div class="listingblock">
+<div class="title">Converting FQL to Hibernate Criteria</div>
+<div class="content"></div></div>
+</div>
+<div class="sect3">
+<h4 id="_fql_schema">FQL Schema</h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/figures/search_query_xsd.png" alt="images/figures/search_query_xsd.png" />
+</div>
+<div class="title">Figure 9. FQL Schema</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_technologies">Technologies</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>OpenFurther is built on a number of Open Source technologies</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Languages
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Java
+</p>
+</li>
+<li>
+<p>
+Groovy
+</p>
+</li>
+<li>
+<p>
+Bash
+</p>
+</li>
+<li>
+<p>
+Python
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Development Tools
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Maven 3
+</p>
+</li>
+<li>
+<p>
+SonaType Nexus
+</p>
+</li>
+<li>
+<p>
+Eclipse
+</p>
+</li>
+<li>
+<p>
+Git
+</p>
+</li>
+<li>
+<p>
+JIRA
+</p>
+</li>
+<li>
+<p>
+Bamboo
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Service Frameworks
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Spring
+</p>
+</li>
+<li>
+<p>
+Apache Commons
+</p>
+</li>
+<li>
+<p>
+Apache CXF
+</p>
+</li>
+<li>
+<p>
+Apache Camel
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Application Servers
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Apache ServiceMix
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Testing
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+JUnit
+</p>
+</li>
+<li>
+<p>
+Spock
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installing">Installing</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>OpenFurther is provided as a VM image for download at this time. The VM can be used as a reference for installation, typically splitting out each Linux user as an individual server.</p></div>
+<div class="paragraph"><p>TODO: Expand this section with detailed instructions for installing on Linux and Windows</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_demo_system_administration">Demo System Administration</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>OpenFurther utilizes a number of different servers to run. The following instructions pertain to the demo VM of OpenFurther that is available for download. All scripts used for starting and stopping services are available within the further-open-extras repository on GitHub.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">The demo version contains all of the servers as individual Linux users.</td>
+</tr></table>
+</div>
+<div class="sect2">
+<h3 id="_apache_http_server">Apache HTTP Server</h3>
+<div class="paragraph"><p>The Apache HTTP server runs on port 80 and port 443. As root, run the following</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>service httpd start|stop</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_in_memory_database_server">In-Memory Database Server</h3>
+<div class="paragraph"><p>The HSQLDB server runs on port 9001. As root, run the following</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>/etc/init.d/hsqldb start|stop</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_core_database_server">Core Database Server</h3>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">While our architecture supports different database, we&#8217;ve currently only tested OpenFurther on Oracle and Oracle XE</td>
+</tr></table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre><code>service oracle-xe start|stop</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_terminology_server_2">Terminology Server</h3>
+<div class="paragraph"><p>The terminology server (Apelon DTS) runs on port 16666 (Requires that the Oracle Database Server has started). As root, run the following</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>su - dtsdemo
+dts-auto start|stop</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_enterprise_service_bus_esb">Enterprise Service Bus (ESB)</h3>
+<div class="paragraph"><p>OpenFurther utilizes an ESB (Apache ServiceMix) to run application code. The ESB requires that the in-memory database, core database, and terminology server are already started. As root, run the following</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>su - esb
+start_esb</code></pre>
+</div></div>
+<div class="paragraph"><p>To stop the ESB:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>su - esb
+esbl
+further@localhost’s password:
+further@local&gt; shutdown
+Confirm: shutdown instance local (yes/no):</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_logging_locations">Logging Locations</h3>
+<div class="sect3">
+<h4 id="_apache_http_server_2">Apache HTTP Server</h4>
+<div class="paragraph"><p>The Apache HTTP server logs are located in /var/www/httpd/</p></div>
+</div>
+<div class="sect3">
+<h4 id="_in_memory_database_server_2">In-Memory Database Server</h4>
+<div class="paragraph"><p>The HSQLDB is currently not configured for logging</p></div>
+</div>
+<div class="sect3">
+<h4 id="_core_database_server_2">Core Database Server</h4>
+<div class="paragraph"><p>The Oracle XE database server is currently not configured for logging</p></div>
+</div>
+<div class="sect3">
+<h4 id="_terminology_server_3">Terminology Server</h4>
+<div class="paragraph"><p>The Apelon DTS server logs in /home/demodts/Apelon_DTS/dts/bin/logs</p></div>
+</div>
+<div class="sect3">
+<h4 id="_enterprise_service_bus_esb_2">Enterprise Service Bus (ESB)</h4>
+<div class="paragraph"><p>ServiceMix ESB logs in /home/esb/servicemix/data/log</p></div>
+</div>
+<div class="sect3">
+<h4 id="_openfurther_i2b2">OpenFurther-i2b2</h4>
+<div class="paragraph"><p>FURTHeR-i2b2 logs in 2 different locations</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+jboss: /home/i2b2/jboss/server/default/logs
+</p>
+</li>
+<li>
+<p>
+tomcat: /home/i2b2/tomcat/logs
+</p>
+</li>
+</ul></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2013-11-11 16:08:56 Mountain Standard Time
+</div>
+</div>
+</body>
+</html>
