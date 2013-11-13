@@ -389,7 +389,7 @@ Prop_Val = dx
 
 and
 
-The Prop_Val for ALIAS_VALUE needs to be the Java member name from the rootObject (Person Class).
+The Prop_Val for ALIAS_VALUE is the Java member name within the rootObject (Person Class).
 
 For example,
 
