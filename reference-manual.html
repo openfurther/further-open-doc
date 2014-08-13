@@ -1183,7 +1183,7 @@ OpenFurther uses XQuery code to translate platform-specific result sets to the O
 </tr></table>
 </div>
 <div class="paragraph"><p>There are 3 phases to configure a new data source for the MDR.</p></div>
-<div class="paragraph"><div class="title">Phase 1</div><p>The first thing that should happen is to create a Mapping of the FURTHER model to your local data model. This step is generally performed by a Terminologist and has no specific configuration with the MDR, but serves as the business requirements or data dictionary document for configuring the MDR in Phases 2 and 3.</p></div>
+<div class="paragraph"><div class="title">Phase 1</div><p>The first thing that should happen is to create a Mapping of the FURTHER model to your local data model. This step is generally performed by a Terminologist and/or Data Architect and has no specific configuration with the MDR, but serves as the business requirements or data dictionary document for configuring the MDR in Phases 2 and 3.</p></div>
 <div class="paragraph"><p>You can use this Excel file as an example:
 (Click on the Raw Link to save the file)</p></div>
 <div class="paragraph"><p><a href="https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Mappings_Demo.xls">https://github.com/openfurther/further-open-doc/blob/master/files/OpenMRS_Mappings_Demo.xls</a></p></div>
@@ -1254,7 +1254,7 @@ Translation associations (and other associations) can have properties (in ASSET_
 <td class="icon">
 <div class="title">Note</div>
 </td>
-<td class="content">There are two parts to the list of Potential Association Properties. Part One is primaryly used for Query Translations, and part Two is used for Result Translations. Query Translations are much more complex and therefore supports more association properties than Result Translations.</td>
+<td class="content">There are two parts to the list of Potential Association Properties. Part One is primarily used for Query Translations, and part Two is used for Result Translations. Query Translations are much more complex and therefore supports more association properties than Result Translations.</td>
 </tr></table>
 </div>
 <div class="paragraph"><div class="title">Part One (Query Translations)</div><p>There are Normal Scenarios and Special Scenarios for Query Translations.</p></div>
@@ -1368,7 +1368,13 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="paragraph"><div class="title">Normal Scenario 3) Configure 2 properties, Alias_Key and Alias_Value for each Table Association.</div><p>If there are more than one table associations, configure multiple pairs of these properties.</p></div>
+<div class="paragraph"><div class="title">Normal Scenario 3) Configure property for the Composite ID Association.</div><p>This is currently needed to support queries within previous Query Result Sets.</p></div>
+<div class="paragraph"><p>Prop_Name = ATTR_VALUE_TRANS_TO_JAVA_DATA_TYPE</p></div>
+<div class="paragraph"><p>Prop_Val = Java Data Type of the external person ID that is associated with the OpenFurther.Person.compositeId</p></div>
+<div class="paragraph"><p>For example,</p></div>
+<div class="paragraph"><p>Prop_Name = ATTR_VALUE_TRANS_TO_JAVA_DATA_TYPE</p></div>
+<div class="paragraph"><p>Prop_Val = java.lang.Integer</p></div>
+<div class="paragraph"><div class="title">Normal Scenario 4) Configure 2 properties, Alias_Key and Alias_Value for each Table Association.</div><p>If there are more than one table associations, configure multiple pairs of these properties.</p></div>
 <div class="paragraph"><p>The Prop_Val for ALIAS_KEY can be anything.</p></div>
 <div class="paragraph"><p>For example,</p></div>
 <div class="paragraph"><p>Prop_Name = ALIAS_KEY</p></div>
@@ -1982,7 +1988,7 @@ tomcat: /home/i2b2/tomcat/logs
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2013-11-12 13:00:25 Mountain Standard Time
+Last updated 2014-08-13 12:44:30 Mountain Daylight Time
 </div>
 </div>
 </body>
