@@ -63,7 +63,9 @@ image::images/figures/fqe.png[]
 
 Data Source Adapters
 ~~~~~~~~~~~~~~~~~~~~
-Data source adapters are facades around an existing data source. Data source adapters can be entirely custom for any given implementation or they can use a pre-written adapter if their data source is already in a well-known format such as OMOP, i2b2, OpenEMR, etc
+Data source adapters are facades around an existing data source. Data source adapters can be entirely custom for any given implementation or they can use a pre-written adapter if their data source is already in a well-known format such as OMOP, i2b2, OpenMRS, etc
+
+Data source adpater configuration should follow the configuration steps outlined in reference-manual-datasources link:reference-manual-datasources.pdf[pdf], link:reference-manual-datasources.asciidoc[asciidoc] 
 
 .Data Source Adapters
 image::images/figures/data_source_adapters.png[]

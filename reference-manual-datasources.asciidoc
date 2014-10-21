@@ -1,0 +1,597 @@
+OpenFurther Datasource Documentation
+===================================
+
+About
+-----
+The following documentation applies to *OpenFurther version 1.4.2* for data source configuration
+
+
+Introduction
+------------
+This document is intended to give information needed to add a datasource to the OpenFurther code base.  Since the GitHub code base is shared between institutions implementing it, it is necessary to keep the code datasource-agnostic – simply stated, no OpenFurther checkins should be made that have any datasource code/configuration.  To achieve this, we are using a development process that includes a precompile step.  This precompile step (discussed in detail below) allows developers to add datasource implementation code/configuration “out-of-line” (that is, in files that reside outside the local Git code base), then run a precompile process before any Maven builds are started.  This precompile process does insert/replace tasks which move the out-of-line code/configuration to appropriate locations in the local Git code base so that the Maven builds can create ServiceMix bundles/features used to create a functional OpenFurther instance.
+
+Preliminary Steps
+-----------------
+=== 1. Get a Git copy of further-open-precompile. Take time to navigate the contents, which include the customization process control (Ant) files:
+
+[%hardbreaks]
+_$OPENFURTHER_CODE_BASE/further-open-precompile/build_
+_$OPENFURTHER_CODE_BASE/further-open-precompile/build.precompile.xml_
+_$OPENFURTHER_CODE_BASE/further-open-precompile/build.properties_
+
+--
+There is also an example of customization code/configuration for two open source datasources: OpenMRS and OMOP. The customization process can be run as is to build and deploy the current Demo version of OpenFurther. 
+--
+
+To build your own datasources, create a new directory at the same level of:
+_$OPENFURTHER_CODE_BASE/further-open-precompile/further-precompile/datasources/OpenMRS-OMOP-Reference_
+Then add the customizations needed as per the rest of this wiki document below. 
+
+This process includes adding datasource code/configuration files in the sibling directory, and making the corresponding changes to files:
+
+_$OPENFURTHER_CODE_BASE/further-open-precompile/further-precompile/datasources/SiblingDirectory/custom.datasource.properties_
+_$OPENFURTHER_CODE_BASE/further-open-precompile/build.precompile.xml_
+
+And also change the properties in: 
+_$OPENFURTHER_CODE_BASE/further-open-precompile/build.properties_
+
+*custom.datasource.dir=* set this to the directory path of the SiblingDirectory
+
+*reference.further.dir=* set this to the root of the datasource customization target directory
+
+=== 2. Get a Git copy of the other OpenFurther repositories
+* _further-open-config_
+* _further-open-core_
+* _further-open-datasources_
+* _further-open-db (optional)_
+* _further-open-doc (optional)_
+* _further-open-extras_
+* _further-open-fabric-deployment_
+* _further-open-i2b2_
+* _further-open-osgi_
+* _further-open-terminology (optional)_
+* _further-open-xquery_
+
+=== 3. 
+The local copies you create in step 2 should remain free of datasource customizations throughout the development process. If there are non-datasource customizations you need to make to Further code, you can make them to these copies (and you can also commit these changes back to GitHub). For your datasource customizations, you will need to make another copy of the step 2 pulls, and these additional copies will become the target of the datasource customization process, and will be what you build and deploy to Servicemix.
+
+=== 4. 
+You can run the precompile datasource customization by invoking "./build" in the further-open-precompile directory you created in step 1 above. Then you can continue the build/deploy process in the datasource customization target (reference.further.dir=) directory. If you encounter build/deploy/runtime errors, you can reset the target directory by simply overlaying it with the local Git copies created in step 2 above._
+
+Datasource Customization Tasks
+------------------------------
+
+=== 1. In further-open-config, add required core datasource deployment configuration files, per environment
+
+_$OPENFURTHER_CODE_BASE/further-open-config/further-core/demo/further.ds.omopv2.cfg_ +
+_$OPENFURTHER_CODE_BASE/further-open-config/further-core/demo/further.ds.openmrsv1_9.cfg_
+
+
+Example DS OMOP v2 data source configuration 
+
+    datasource.url=jdbc:oracle:thin:@localhost:1521:xe
+    datasource.driver=oracle.jdbc.OracleDriver
+    datasource.user=omop_v2
+    datasource.password=ENC(YqLgStaw5zJc17darpYvrEO3Xp64TdLL)
+    hibernate.dialect=org.hibernate.dialect.Oracle10gDialect 
+    c3p0.preferredTestQuery=select 1 from dual
+    ds.namespaceId=32868
+
+.build.precompile.xml:
+[source,xml,numbered]
+    <echo message="Adding files from ${custom.datasource.dir}/further-open-config/further-core/demo" />
+        <copy todir="${reference.further.dir}/further-open-config/further-core/demo">
+             <fileset dir="${custom.datasource.dir}/further-open-config/further-core/demo"excludes=""/>
+        </copy>
+
+
+=== 2. In further-open-config, add required core datasource deployment configuration, per environment
+
+_$OPENFURTHER_CODE_BASE/further-open-config/further-core/demo/further.core.util.cfg_
+
+    # Standard namespace names
+    namespace.openmrs-v1_9.name=OpenMRS-V1_9
+    # Standard namespace identifiers
+    namespace.openmrs-v1_9.id=32812
+
+.build.precompile.xml:
+[source,xml,numbered]
+  <!-- Replace all @DSCUSTOM-NN@ tokens with values in ${custom.datasource.dir}/custom.datasource.properties: -->
+        <echo message="Customizing file ${reference.further.dir}/further-open-config/further-core/demo/further.core.util.cfg" />
+        <echo message="replacing tokens @DSCUSTOM-18@ @DSCUSTOM-19@"/>
+        <replace file="${reference.further.dir}/further-open-config/further-core/demo/further.core.util.cfg"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>
+        
+custom.datasource.properties:
+
+    @DSCUSTOM-18@=namespace.openmrs-v1_9.name=OpenMRS-V1_9
+    @DSCUSTOM-19@=namespace.openmrs-v1_9.id=32812
+
+=== 3. In core-test, create and complete any datasource-related artifacts
+_$OPENFURTHER_CODE_BASE/further-open-core/core/core-test/src/main/resources/META-INF/namespaces/namespaces-standard.properties_
+ 
+ # Standard namespace names
+ namespace.openmrs-v1_9.name=OpenMRS-V1_9 
+ # Standard namespace identifiers
+ namespace.openmrs-v1_9.id=32812
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Customizing file ${reference.further.dir}/further-open-core/core/core-test/src/main/resources/META-INF/namespaces/namespaces-standard.properties" />
+        <echo message="replacing tokens @DSCUSTOM-01@ @DSCUSTOM-02@"/>
+        <replace file="${reference.further.dir}/further-open-core/core/core-test/src/main/resources/META-INF/namespaces/namespaces-standard.properties"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>    
+    
+custom.datasource.properties:
+
+    @DSCUSTOM-01@=namespace.openmrs-v1_9.name=OpenMRS-V1_9
+    @DSCUSTOM-02@=namespace.openmrs-v1_9.id=32812
+
+=== 4. In core-util, create and complete any datasource-related ServiceMix configuration
+
+_$OPENFURTHER_CODE_BASE/further-open-core/core/core-util/src/main/resources/META-INF/spring/core-util-osgi-import.xml_
+ 
+.ServiceMix core-util-osgi-import.xml:
+[source,xml,numbered]
+   <osgix:cm-properties id="coreUtilProps"
+         persistent-id="further.core.util">
+         <!-- ############################ -->
+         <!-- # Standard namespace names # -->
+         <!-- ############################ -->
+         <prop key="namespace.openmrs-v1_9.name"></prop>
+         <!-- ################################## -->
+         <!-- # Standard namespace identifiers # -->
+         <!-- ################################## -->
+         <prop key="namespace.openmrs-v1_9.id"></prop>
+   </osgix:cm-properties>
+
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Customizing file ${reference.further.dir}/further-open-core/core/core-util/src/main/resources/META-INF/spring/core-util-osgi-import.xml" />
+        <echo message="replacing tokens @DSCUSTOM-20@ @DSCUSTOM-21@"/>
+        <replace file="${reference.further.dir}/further-open-core/core/core-util/src/main/resources/META-INF/spring/core-util-osgi-import.xml"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>        
+ 
+custom.datasource.properties:
+    
+    @DSCUSTOM-20@=<prop key="namespace.openmrs-v1_9.name"></prop>
+    @DSCUSTOM-21@=<prop key="namespace.openmrs-v1_9.id"></prop>
+
+
+=== 5. In further-core/ds, create and complete any datasource directories
+
+[%hardbreaks]
+_$OPENFURTHER_CODE_BASE/further-open-core/ds/ds-omop/pom.xml_
+_$OPENFURTHER_CODE_BASE/further-open-core/ds/ds-openmrs/pom.xml_
+_$OPENFURTHER_CODE_BASE/further-open-core/ds/ds-omop/src/main/java_
+_$OPENFURTHER_CODE_BASE/further-open-core/ds/ds-openmrs/src/main/java_
+
+    $OPENFURTHER_CODE_BASE/further-open-core/ds:
+    total used in directory 24 available 106236075
+    drwxr-xr-x  15 rich  staff   510 Sep 26 10:55 .
+    drwxr-xr-x  21 rich  staff   714 Sep 27 21:08 ..
+    ...
+    drwxr-xr-x   8 rich  staff   272 Sep 26 10:55 ds-openmrs
+    drwxr-xr-x   8 rich  staff   272 Sep 26 10:55 ds-test
+    ...
+    -rw-r--r--   1 rich  staff  6253 Sep 26 10:12 pom.xml
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-openmrs" />
+        <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-omop" />
+        <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-openmrsv1_9-adapter" />
+        <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-omop-v2-adapter" />
+        <copy todir="${reference.further.dir}/further-open-datasources">
+             <fileset dir="${custom.datasource.dir}/further-open-datasources">
+                  <include name="**" />
+        </fileset>
+        </copy>
+
+=== 6. Also in -core/ds, add any datasource modules to pom 
+
+_$OPENFURTHER_CODE_BASE/further-open-core/ds/pom.xml_
+
+[source,xml,numbered]
+  <!-- =========================================== -->
+   <!-- Modules                                     -->
+   <!-- =========================================== -->
+   <modules>
+         <module>ds-omop</module>
+         <module>ds-openmrs</module>
+   </modules>
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-openmrs" />
+        <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-omop" />
+        <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-openmrsv1_9-adapter" />
+        <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-omop-v2-adapter" />
+        <copy todir="${reference.further.dir}/further-open-datasources">
+        <fileset dir="${custom.datasource.dir}/further-open-datasources">
+            <include name="**" />
+        </fileset>
+
+=== 7. In fqe-ds-api, add any datasource modules to pom:
+
+_$OPENFURTHER_CODE_BASE/further-open-core/fqe/fqe-ds-api/pom.xml_
+ 
+[source,xml,numbered]
+       <further.osgi.import.pkg>
+               edu.utah.further.ds.omop.model.v2.domain,
+               edu.utah.further.ds.openmrs.model.v1_9.domain,
+         </further.osgi.import.pkg>
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Customizing file ${reference.further.dir}/further-open-core/fqe/fqe-ds-api/pom.xml" />
+        <echo message="replacing token @DSCUSTOM-04@"/>
+        <replace file="${reference.further.dir}/further-open-core/fqe/fqe-ds-api/pom.xml"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>   
+     
+custom.datasource.properties:
+
+    @DSCUSTOM-04@=edu.utah.further.ds.omop.model.v2.domain,\n\
+    edu.utah.further.ds.omop.model.v4.domain,\n\
+    edu.utah.further.ds.openmrs.model.v1_9.domain,
+
+
+=== 8. In fqe-ds-impl, add any datasource modules to pom
+
+_$OPENFURTHER_CODE_BASE/further-open-core/fqe/fqe-impl/pom.xml_
+ 
+[source,xml,numbered]
+        <further.osgi.import.pkg>
+               edu.utah.further.ds.omop.model.v2.domain,
+               edu.utah.further.ds.openmrs.model.v1_9.domain,
+         </further.osgi.import.pkg>
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Customizing file ${reference.further.dir}/further-open-core/fqe/fqe-impl/pom.xml" />
+        <echo message="replacing token @DSCUSTOM-05@"/>
+        <replace file="${reference.further.dir}/further-open-core/fqe/fqe-impl/pom.xml"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>        
+ 
+custom.datasource.properties:
+
+    @DSCUSTOM-05@=edu.utah.further.ds.omop.model.v2.domain,\n\
+    edu.utah.further.ds.omop.model.v4.domain,\n\
+    edu.utah.further.ds.openmrs.model.v1_9.domain,
+
+=== 9. In fqe-ds-impl, add any datasource ids to the CSV export whitelist
+
+_$OPENFURTHER_CODE_BASE/further-open-core/fqe/fqe-impl/src/main/resources/META-INF/spring/fqe-impl-context-services.xml_
+ 
+[source,xml,numbered]
+    <!-- A list of allowed data source ids that allow exporting of results -->
+   <util:list id="exportWhitelist">
+         <value>OpenMRS-V1_9</value>
+         <value>OMOP-v2</value>
+   </util:list>
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Customizing file ${reference.further.dir}/further-open-core/fqe/fqe-impl/src/main/resources/META-INF/spring/fqe-impl-context-services.xml" />
+        <echo message="replacing token @DSCUSTOM-06@"/>
+        <replace file="${reference.further.dir}/further-open-core/fqe/fqe-impl/src/main/resources/META-INF/spring/fqe-impl-context-services.xml"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace> 
+       
+
+custom.datasource.properties:
+
+    @DSCUSTOM-06@=<value>OpenMRS-V1_9</value>\n\
+    <value>OMOP-v2</value>
+
+=== 10. In fqe-mpi-impl, add any datasource Translator classes to the service:
+
+[%hardbreaks]
+_$OPENFURTHER_CODE_BASE/further-open-core/fqe/fqe-mpi-impl/src/main/java_ 
+_$OPENFURTHER_CODE_BASE/further-open-core/fqe/fqe-mpi-impl/src/main/java/edu/utah/further/fqe/mpi/impl/service:_
+
+  total used in directory 88 available 106235099
+  -rw-r--r--  1 rich  staff   4228 Sep 26 10:04 OmopIdTranslator.java
+  -rw-r--r--  1 rich  staff   4501 Sep 26 10:04 OmrsIdTranslator.java
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Adding files from ${custom.datasource.dir}/further-open-core/fqe/fqe-mpi-impl/src/main/java/edu/utah/further/fqe/mpi/impl/service" />
+        <copy todir="${reference.further.dir}/further-open-core/fqe/fqe-mpi-impl/src/main/java/edu/utah/further/fqe/mpi/impl/service">
+             <fileset dir="${custom.datasource.dir}/further-open-core/fqe/fqe-mpi-impl/src/main/java/edu/utah/further/fqe/mpi/impl/service"
+                      excludes=""/>
+        </copy>
+
+=== 11. Also in fqe-mpi-impl, add any datasource Translator Spring references:
+ 
+_$OPENFURTHER_CODE_BASE/further-open-core/fqe/fqe-mpi-impl/src/main/resources/META-INF/spring/fqe-mpi-impl-context-services.xml_
+ 
+[source,xml,numbered]
+   <util:map id="translationProviders">
+         <entry key="OMOP-v2" value-ref="ZZZ" />
+         <entry key="OpenMRS-V1_9" value-ref="omrsIdTranslator" />
+   </util:map>
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+    <echo message="Customizing file ${reference.further.dir}/further-open-core/fqe/fqe-mpi-impl/pom.xml" />
+    <echo message="replacing tokens @DSCUSTOM-07@"/>
+    <replace file="${reference.further.dir}/further-open-core/fqe/fqe-mpi-impl/src/main/resources/META-INF/spring/fqe-mpi-impl-context-services.xml"
+            replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+    </replace>   
+     
+custom.datasource.properties:
+
+    @DSCUSTOM-07@=<entry key="OMOP-v2" value-ref="omopIdTranslator" />\n\
+    <entry key="OpenMRS-V1_9" value-ref="omrsIdTranslator" />
+
+=== 12. And in fqe-mpi-impl, add any datasource Translator Spring references:
+ 
+_$OPENFURTHER_CODE_BASE/further-open-core/fqe/fqe-mpi-impl/src/test/resources/fqe-mpi-impl-test-context-identifier-datasource.xml_
+ 
+[source,xml,numbered]
+   <util:map id="translationProviders">
+         <entry key="OMOP-v2" value-ref="omopIdTranslator" />
+         <entry key="OpenMRS-V1_9" value-ref="omrsIdTranslator" />
+   </util:map>
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Customizing file ${reference.further.dir}/further-open-core/fqe/fqe-mpi-impl/src/test/resources/fqe-mpi-impl-test-context-identifier-datasource.xml" />
+        <echo message="replacing token @DSCUSTOM-08@"/>
+        <replace file="${reference.further.dir}/further-open-core/fqe/fqe-mpi-impl/src/test/resources/fqe-mpi-impl-test-context-identifier-datasource.xml"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>     
+   
+custom.datasource.properties:
+
+    @DSCUSTOM-08@=<entry key="OMOP-v2" value-ref="omopIdTranslator" />\n\
+    <entry key="OpenMRS-V1_9" value-ref="omrsIdTranslator" />
+
+=== 13. In fqe-ws, add any datasource domain class references to the osgi-import in the pom:
+ 
+_$OPENFURTHER_CODE_BASE/further-open-core/fqe/fqe-ws/pom.xml_
+ 
+[source,xml,numbered]
+         <further.osgi.import.pkg>
+               edu.utah.further.ds.omop.model.v2.domain,
+               edu.utah.further.ds.openmrs.model.v1_9.domain,
+         </further.osgi.import.pkg>
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+    <echo message="Customizing file ${reference.further.dir}/further-open-core/fqe/fqe-ws/pom.xml" />
+    <echo message="replacing token @DSCUSTOM-09@"/>
+    <replace file="${reference.further.dir}/further-open-core/fqe/fqe-ws/pom.xml"
+             replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+    </replace>        
+ 
+custom.datasource.properties:
+
+    @DSCUSTOM-09@=edu.utah.further.ds.omop.model.v2.domain,\n\
+    edu.utah.further.ds.omop.model.v4.domain,\n\
+    edu.utah.further.ds.openmrs.model.v1_9.domain,
+
+=== 14. Root project pom dependencies will need to be plugged in at build time:
+ 
+_$OPENFURTHER_CODE_BASE/further-open-core/pom.xml_
+ 
+[source,xml,numbered]
+               <dependency>
+                     <groupId>edu.utah.further.ds</groupId>
+                     <artifactId>ds-omop</artifactId>
+                     <version>${project.version}</version>
+               </dependency>
+               <dependency>
+                     <groupId>edu.utah.further.ds</groupId>
+                     <artifactId>ds-openmrs</artifactId>
+                     <version>${project.version}</version>
+               </dependency>
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+    <echo message="Customizing file ${reference.further.dir}/further-open-core/pom.xml" />
+    <echo message="replacing token @DSCUSTOM-10@"/>
+    <replace file="${reference.further.dir}/further-open-core/pom.xml"
+             replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+    </replace>    
+    
+custom.datasource.properties:
+
+    @DSCUSTOM-10@=<dependency>\n\
+   <groupId>edu.utah.further.ds</groupId>\n\
+   <artifactId>ds-omop</artifactId>\n\
+   <version>${project.version}</version>\n\
+   </dependency>\n\
+   <dependency>\n\
+   <groupId>edu.utah.further.ds</groupId>\n\
+   <artifactId>ds-openmrs</artifactId>\n\
+   <version>${project.version}</version>\n\
+   </dependency>
+
+=== 15. further-open-datasources are where the datasource adapter Spring configuration lives
+
+(Use the supplied source for Omop V2 and OpenMrs as a guide for your datasource(s))
+ 
+[%hardbreaks]
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-omopv2-adapter/pom.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/pom.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-omopv2-adapter/src/main/resources/META-INF/spring/ds-omopv2-all.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-omopv2-adapter/src/main/resources/META-INF/spring/ds-omopv2-context-annotation.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-omopv2-adapter/src/main/resources/META-INF/spring/ds-omopv2-context-datasource.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-omopv2-adapter/src/main/resources/META-INF/spring/ds-omopv2-context-services.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-omopv2-adapter/src/main/resources/META-INF/spring/ds-omopv2-osgi-import.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/src/main/resources/META-INF/spring/ds-openmrsv1_9-all.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/src/main/resources/META-INF/spring/ds-openmrsv1_9-context-annotation.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/src/main/resources/META-INF/spring/ds-openmrsv1_9-context-datasource.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/src/main/resources/META-INF/spring/ds-openmrsv1_9-context-services.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/src/main/resources/META-INF/spring/ds-openmrsv1_9-osgi-import.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/src/test/java/edu/utah/further/ds/openmrs/v1_9/UTestExecuteOpenMRSSearchQuery.java_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/src/test/resources/datasource.properties_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/ds-openmrsv1_9-adapter/src/test/resources/ds-openmrsv1_9-context.xml_
+_$OPENFURTHER_CODE_BASE/further-open-datasources/etc/Datasources _
+_$OPENFURTHER_CODE_BASE/further-open-datasources/pom.xml_
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+    <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-openmrs" />
+    <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-omop" />
+    <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-openmrsv1_9-adapter" />
+    <echo message="Adding directory ${custom.datasource.dir}/further-open-datasources/ds-omop-v2-adapter" />
+    <copy todir="${reference.further.dir}/further-open-datasources">
+    <fileset dir="${custom.datasource.dir}/further-open-datasources">
+        <include name="**" />
+    </fileset>
+
+=== 16. further-open-i2b2 requires php changes to display the new datasources in the browser:
+ 
+_$OPENFURTHER_CODE_BASE/further-open-i2b2/i2b2-webclient/src/main/webapp/i2b2/default.php_
+ 
+.default.php
+[source,php]
+----
+    <div id="countDatasources" style="padding: 2px">
+                                    <?php
+                                    if ($ini['demo']) {
+                                          echo
+                                          '<div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="countQueryType" value="OMOP-v2">Schultz Cancer Repository (OMOP data source)</div>
+                              <div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="countQueryType" value="OpenMRS-V1_9">Schultz Healthcare Systems (OpenMRS data source)</div>';
+                                    } else {
+                                          echo
+                                          '<div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="countQueryType" value="count_ds_edw">University of Utah Enterprise Data Warehouse</div>
+                              <div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="countQueryType" value="count_ds_updb">Utah Population Database Limited</div>';
+                                    }
+                                    ?>
+                </div>
+                <div class="further_text"><input id="dataQuery" type="radio" class="chkQueryType" name="queryType" value="data_query" onclick="i2b2.CRC.ctrlr.QT.toggleQueryType()"/>Submit Data Query to OpenFurther ?</div>
+                <div style="margin-left: 15px; padding: 5px;"><span class="further_text_highlight">Results common to multiple sources will be displayed and analysis tools can be used with results. This also allows you to export the data set later.</div>
+                <div id="dataDatasources" style="display:none; padding: 2px;">
+                                    <?php
+                                    if ($ini['demo']) {
+                                          echo
+                                          '<div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="dataQueryType" value="OMOP-v2">Schultz Cancer Repository (OMOP data source)</div>
+                              <div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="dataQueryType" value="OpenMRS-V1_9">Schultz Healthcare Systems (OpenMRS data source)</div>';
+                                    } else {
+                                          echo
+                                          '<div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="dataQueryType" value="data_ds_edw">University of Utah Enterprise Data Warehouse</div>
+                                  <div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="dataQueryType" value="data_ds_updb">Utah Population Database Limited</div>';
+                                    }
+                                    ?>
+                  <br/>  
+----                  
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+
+    <echo message="Customizing file ${reference.further.dir}/further-open-i2b2/i2b2-webclient/src/main/webapp/i2b2/default.php" />
+    <echo message="replacing tokens @DSCUSTOM-11@ @DSCUSTOM-12@"/>
+        <replace file="${reference.further.dir}/further-open-i2b2/i2b2-webclient/src/main/webapp/i2b2/default.php"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>        
+ 
+custom.datasource.properties:
+    
+    @DSCUSTOM-12@=echo \n\
+    '<div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="dataQueryType" value="OMOP-    v2">Schultz Cancer Repository (OMOP data source)</div>\n\
+    <div class="further_datasource_name" style="margin-left:10px"><input type="checkbox" class="chkQueryType" name="dataQueryType" value="OpenMRS-V1_9">Schultz Healthcare Systems (OpenMRS data source)</div>';
+
+=== 17. further-open-osgi requires additional ServiceMix configuration for the new datasource features:
+ 
+_$OPENFURTHER_CODE_BASE/further-open-osgi/osgi-core-features/src/main/resources/feature.xml_
+ 
+[source,xml,numbered]
+      <feature name="further-core-ds" version="${project.version}">
+            <bundle><![CDATA[mvn:edu.utah.further.ds/ds-omop/${project.version}]]></bundle>
+            <bundle><![CDATA[mvn:edu.utah.further.ds/ds-openmrs/${project.version}]]></bundle>
+      </feature>
+ 
+    and:
+ 
+      <feature name="further-datasources" version="${project.version}">
+            <feature>further-omopv2-adapter</feature>
+            <feature>further-openmrsv1_9-adapter</feature>
+      </feature>
+      <feature name="further-omopv2-adapter" version="${project.version}">
+            <bundle><![CDATA[mvn:edu.utah.further.ds/ds-omopv2-adapter/${project.version}]]></bundle>
+      </feature>    
+      <feature name="further-openmrsv1_9-adapter" version="${project.version}">
+            <bundle><![CDATA[mvn:edu.utah.further.ds/ds-openmrsv1_9-adapter/${project.version}]]></bundle>
+      </feature>
+ 
+_$OPENFURTHER_CODE_BASE/further-open-osgi/osgi-datasources-features/src/main/resources/feature.xml_
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+        <echo message="Customizing file ${reference.further.dir}/further-open-osgi/osgi-core-features/src/main/resources/feature.xml" />
+        <echo message="replacing token @DSCUSTOM-13@"/>
+        <replace file="${reference.further.dir}/further-open-osgi/osgi-core-features/src/main/resources/feature.xml"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>        
+        <echo message="Customizing file ${reference.further.dir}/further-open-osgi/osgi-datasources-features/src/main/resources/feature.xml" />
+        <echo message="replacing tokens @DSCUSTOM-14@ @DSCUSTOM-15@"/>
+        <replace file="${reference.further.dir}/further-open-osgi/osgi-datasources-features/src/main/resources/feature.xml"
+                 replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+        </replace>        
+ 
+custom.datasource.properties:
+
+    @DSCUSTOM-13@=<bundle><![CDATA[mvn:edu.utah.further.ds/ds-omop/${project.version}]]></bundle>\n\
+    <bundle><![CDATA[mvn:edu.utah.further.ds/ds-openmrs/${project.version}]]></bundle>
+    @DSCUSTOM-14@=<feature>further-omopv2-adapter</feature>\n\
+    <feature>further-openmrsv1_9-adapter</feature>
+    @DSCUSTOM-15@=<feature name="further-omopv2-adapter" version="${project.version}">\n\
+    <bundle><![CDATA[mvn:edu.utah.further.ds/ds-omopv2-adapter/${project.version}]]></bundle>\n\
+    </feature>\n\
+    <feature name="further-openmrsv1_9-adapter" version="${project.version}">\n\
+    <bundle><![CDATA[mvn:edu.utah.further.ds/ds-openmrsv1_9-adapter/${project.version}]]></bundle>\n\
+    </feature>
+
+=== 18. further-open-xquery scripts may require custom logic for your datasource(s)
+ 
+_$OPENFURTHER_CODE_BASE/further-open-xquery/src/main/resources/query/fqt.xqm_
+ 
+IMPORTANT: OMOP has a special case where ICD-9 needs to be translated to SNOMED first, before translating to OMOP-V2 
+
+SNOMED uses the Standard 'Code in Source' Property Name
+
+    declare variable $fqt:OMOP-V2 as xs:string := '32868';
+ 
+.build.precompile.xml:
+[source,xml,numbered]
+    <echo message="Customizing file ${reference.further.dir}/further-open-xquery/src/main/resources/query/fqt.xqm" />
+    <echo message="replacing tokens @DSCUSTOM-16@ @DSCUSTOM-17@ @DSCUSTOM-22@"/>
+    <replace file="${reference.further.dir}/further-open-xquery/src/main/resources/query/fqt.xqm"
+        replacefilterfile="${custom.datasource.dir}/custom.datasource.properties">
+    </replace>    
+    
+
+custom.datasource.properties:
+
+    @DSCUSTOM-16@=(: OMOP has a special case where ICD-9 needs to be translated to SNOMED first, \n\
+   before translating to OMOP-V2 \n\
+   SNOMED uses the Standard 'Code in Source' Property Name :)\n\
+   declare variable $fqt:OMOP-V2 as xs:string := '32868';
+ 
+ @DSCUSTOM-17@=  (: Call preTransOMOP Special Case :)\n\
+  (: Possibly make preTranslations Generic (MDR Driven) to ALL Data Sources in the Future :)\n\
+  let $preTranslatedOMOP := fqt:preTransOMOP($obsTypeInput,$targetNamespaceId)\n\
+  (: Call transCriteriaPhrase :)\n\
+  let $translatedCriteriaPhrase := fqt:transCriteriaPhrase($preTranslatedOMOP,$targetNamespaceId)
+
+=== 19. further-open-db can be used to house any database configuration utilities / etc.
+
+_$OPENFURTHER_CODE_BASE/further-open-db_
+
+Implementation specific.
+
+=== 20. further-open-xquery test artifacts for your datasource(s) will be included:
+
+_$OPENFURTHER_CODE_BASE/further-open-xquery/src/test_
+
+Implementation specific.
+        
