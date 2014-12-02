@@ -177,14 +177,14 @@ Metadata Repository (MDR)
 
 Getting Started
 ~~~~~~~~~~~~~~~
-Two important parts of the metadata repository are Query Translation and Result Translation. Data stored within the MDR is used to drive each of these processes.
+Two important functions supported by the metadata repository are Query Translation and Result Translation. Data stored within the MDR is used to drive each of these processes.
 
 .Translating Metadata
 image::images/figures/translating_metadata.png[]
 
 Query Translation
 ^^^^^^^^^^^^^^^^^
-The objective of a query translation is to convert the OpenFurther Query Language (FQL) query (OpenFurther's classes, attributes, and attribute values) into the physical data source's data classes, attributes, and attribute values while maintaining the integrity of the query logic.
+The objective of a query translation is to convert the OpenFurther Query Language (FQL) query (OpenFurther's classes, attributes, and attribute values) into the target physical data source's data classes, attributes, and attribute values while maintaining the integrity of the query logic. If the attributes being queried does not exist in the external target data source, no data will be returned from the particular source. Therefore, the end user must carefully select the attributes to ensure that they exist in the target of interest.
 
 .Query Translation
 image::images/figures/query_translation.png[]
