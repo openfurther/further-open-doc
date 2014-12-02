@@ -418,7 +418,7 @@ Prop_Val = ageToBirthYear
 
 So instead of the normal translateCode in the Prop_Val, we have "ageToBirthYear".
 
-.Special Scenario 2) Each Asset Association by default specifies that Left Asset translates to Right Asset. However, if you want to skip this translation without throwing an Error, provide an assocation property with the following. This is mostly used with devNull associations. For example, the FURTHER.PERSON.ID.DATASETID does not translate to anything at the External Data Sources, however, we do not want to consider this as an Error, therefore, we simple skip it from translation processing.
+.Special Scenario 2) Each Asset Association by default specifies that Left Asset translates to Right Asset. However, if you want to skip this translation without throwing an Error, provide an assocation property with the following. This is mostly used with devNull associations. For example, the FURTHER.PERSON.ID.DATASETID does not translate to anything at the External Data Sources, however, we do not want to consider this as an Error, therefore, we simply skip it from translation processing. This property is used for only Special attributes such as datasetID, and Qualifier "Type" attributes. This skipping property should NOT be applied to normal attributes, where an Error is expected.
 
 Prop_Name = ATTR_TRANS_FUNC
 
