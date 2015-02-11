@@ -392,7 +392,7 @@ Prop_Val = java.lang.Integer
 .Normal Scenario 4) Configure 2 properties, Alias_Key and Alias_Value for each Table Association.
 If there are more than one table associations, configure multiple pairs of these properties.
 
-The Prop_Val for ALIAS_KEY can be anything.
+The Prop_Val for ALIAS_KEY can be anything. 
 
 For example,
 
@@ -400,7 +400,15 @@ Prop_Name = ALIAS_KEY
 
 Prop_Val = dx
 
-and
+If your data source requires a Static Alias Key Prop_Val, append 'STATIC^' to your Alias Key Prop_Val.
+
+Use this example:
+
+Prop_Name = ALIAS_KEY
+
+Prop_Val = STATIC^Diagnosis
+
+Now, configure the ALIAS_VALUE Property
 
 The Prop_Val for ALIAS_VALUE is the Java member name within the rootObject (Person Class).
 
