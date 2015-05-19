@@ -528,6 +528,18 @@ i.e. Prop_Val = “obs^observations”
 
 Note that duplicate Aliases are removed during the cleanup phase. So having more than one of these configured is ok. However, in order to support ‘AND’ conditions with multiple fields in the SAME table, we need to replace <criteria> with a subquery template using Special Scenario 4 above.
 
+.Special Scenario 7) To activate Dynamic Custom Function Calls, we can configure a function name, prefixed with 'CUSTOM^fqt:'.
+You must have a XQuery function with a matching name for this to work. 
+Note that the function name must be prefixed with the 'fqt:' XQuery Namespace.
+
+For example, if you want to apply XQuery function yearFromDateTime to the value to be translated:
+
+Prop_Name = ATTR_VALUE_TRANS_FUNC
+
+Prop_Val = CUSTOM^fqt:yearFromDateTime
+
+
+
 .Part Two (Result Translations)
 There are Normal Scenarios and Special Scenarios for Result Translations.
 
