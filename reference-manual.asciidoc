@@ -532,7 +532,7 @@ Note that duplicate Aliases are removed during the cleanup phase. So having more
 You must have a XQuery function with a matching name for this to work. 
 Note that the function name must be prefixed with the 'fqt:' XQuery Namespace.
 
-For example, if you want to apply XQuery function yearFromDateTime to the value to be translated:
+For example, if you want to apply a Custom XQuery function yearFromDateTime to the value to be translated:
 
 Prop_Name = ATTR_VALUE_TRANS_FUNC
 
