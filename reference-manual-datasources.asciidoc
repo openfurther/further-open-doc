@@ -3,7 +3,7 @@ OpenFurther Datasource Documentation
 
 About
 -----
-The following documentation applies to *OpenFurther version 1.4.2* for data source configuration
+The following documentation applies to *OpenFurther version 1.4.x* for data source configuration
 
 
 Introduction
