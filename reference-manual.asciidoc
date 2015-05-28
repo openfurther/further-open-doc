@@ -335,7 +335,17 @@ For example, OpenFurther.Person to MyNamespace.myPatient. The direction of this 
 Translation associations (and other associations) can have properties (in ASSET_ASSOC_PROP table) that describe the translation mapping requirements. For example, some properties may direct a data type conversion such as int to string, while others may declare a function that needs to be used for a functional conversion, or even an instruction to not change an attribute name. Properties are created via the ASSET_ASSOC_PROP table and are associated to ASSET_ASSOC records.
 
 [NOTE]
-There are two parts to the list of Potential Association Properties. Part One is primarily used for Query Translations, and part Two is used for Result Translations. Query Translations are much more complex and therefore supports more association properties than Result Translations.
+There are two parts to the list of Potential Association Properties. 
+Part One is primarily used for Query Translations, and part Two is used for Result Translations. 
+Query Translations are much more complex and therefore supports more association properties than Result Translations.
+
+[General Error Handling Note]
+If you query an Attribute (Data Element) that exists in the Central Data Model, but is missing and does not have an associated Attribute in the External Data Model, the XQuery Query Translation program is expected to Error out with the missing data element specified.
+The reasoning is because when a data element is missing from a criteria, the definition of the entire query is changed, and therefore invalidates the entire Query.
+This Error will halt the entire Query Processing Session.
+
+However, for Result Translation, Missing data elements are not critical since the rest of the data values are still valid and may be valuable to the researchers.
+Therefore, a missing data element association in Result Translations will not halt the entire Result Translation process.
 
 .Part One (Query Translations)
 There are Normal Scenarios and Special Scenarios for Query Translations.
