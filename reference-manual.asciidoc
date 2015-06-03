@@ -591,6 +591,29 @@ Prop_Name = RESULT_PATH
 
 Prop_Val = S
 
+.Part Three (Query & Result Translations)
+By default, when calling DTS (Apelon Terminology Server), we get the exact match of the external 'Local Code' value.
+However, we can override this default with an association property like this:
+
+If we want to get the value of DTS property type 'Value_Of_Race'
+
+Prop_Name = EXTERNAL_PROPERTY_NAME
+
+Prop_Val = Value_Of_Race
+
+OR
+
+If we want to get the value of DTS property type 'Domain'
+
+Prop_Name = EXTERNAL_PROPERTY_NAME
+
+Prop_Val = Domain
+
+This will create a DTS call like this:
+
+http://dev-esb.further.utah.edu:9000/dts/rest/translate/30/Code%20in%20Source/439401001/32776/Domain?view=HUMAN
+
+
 
 Data Source Adapters
 --------------------
