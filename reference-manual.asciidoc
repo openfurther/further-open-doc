@@ -480,7 +480,7 @@ Prop_Name = OBSERVATION_TYPE_DX_ICD10
 
 Prop_Val = 439401001^1518
 
-if you would like to force a specific observationType^namespace to Error Out,
+if you would like to force a specific observationType and namespace combination to Error Out,
 you append '^E' at the end of the Prop_Name like this:
 
 Prop_Name = OBSERVATION_TYPE_DX_ICD10^E
