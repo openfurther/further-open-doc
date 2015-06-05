@@ -466,21 +466,26 @@ Prop_Val = 71388002
 
 
 .Special Scenario 3 Addendum) To distinguish between coding standards with the Same Observation Type.
-When you have multiple attributes that translated to multiple coding standards in the external data source, you will need to configure the OBSERVATION_TYPE_XXXX with the appended DTS Namespace ID, like this. Replace the ^DTS_Namespace_ID, with whatever you are actually using in your environment.
+When you have multiple attributes that translated to multiple coding standards in the external data source, you will need to configure the Prop_Name with a unique name and appended DTS Namespace ID to the Prop_Val. Replace the ^DTS_Namespace_ID with whatever you are actually using in your DTS environment.
 
 For Diagnosis, using ICD9
 
-Prop_Name = OBSERVATION_TYPE_DX
+Prop_Name = OBSERVATION_TYPE_DX_ICD9
 
 Prop_Val = 439401001^10
 
 For Diagnosis, using ICD10
 
-Prop_Name = OBSERVATION_TYPE_DX
+Prop_Name = OBSERVATION_TYPE_DX_ICD10
 
 Prop_Val = 439401001^1518
 
+if you would like to force a specific observationType^namespace to Error Out,
+you append '^E' at the end of the Prop_Name like this:
 
+Prop_Name = OBSERVATION_TYPE_DX_ICD10^E
+
+Prop_Val = 439401001^1518
 
 
 .Special Scenario 4) Sometimes one FURTHER <criteria> node translates to two <criteria> nodes at the External Data Source. For example, FURTHER.Person.race translates to OpenMRS.PersonAttribute.value, where the PersonAttributeType = 1. Therefore, we need one <criteria> for the OpenMRS.PersonAttribute.value and another <criteria> node for OpenMRS.PersonAttribute.PersonAttributeType. What we will do is create an XML Template in the MDR where we will replace a specific <criteria> with the translated criteria. Refer to the example below. 
