@@ -350,12 +350,19 @@ Therefore, a missing data element association in Result Translations will not ha
 .Part One (Query Translations)
 There are Normal Scenarios and Special Scenarios for Query Translations.
 
-.Normal Scenario 1) Configure for DTS Coded Value Translation with:
+.Normal Scenario 1) Configure Translate Attribute Name
+For each Attribute Name that requires Translation:
+
+Prop_Name = ATTR_TRANS_FUNC
+
+Prop_Val = translateAttr
+
+.Normal Scenario 2) Configure for DTS Coded Value Translation with:
 Prop_Name = ATTR_VALUE_TRANS_FUNC
 
 Prop_Val = translateCode
 
-.Normal Scenario 2) Configure for Data Type Translation with:
+.Normal Scenario 3) Configure for Data Type Translation with:
 Prop_Name = ATTR_VALUE_TRANS_TO_DATA_TYPE
 
 Prop_Val = xs:decimal (Or other appropriate valid XML Data Types)
@@ -388,7 +395,7 @@ Prop_Val = xs:decimal (Or other appropriate valid XML Data Types)
 |java.util.UUID | xs:string
 |=======================
 
-.Normal Scenario 3) Configure property for the Composite ID Association.
+.Normal Scenario 4) Configure property for the Composite ID Association.
 This is currently needed to support queries within previous Query Result Sets.
 
 Prop_Name = ATTR_VALUE_TRANS_TO_JAVA_DATA_TYPE
@@ -401,7 +408,7 @@ Prop_Name = ATTR_VALUE_TRANS_TO_JAVA_DATA_TYPE
 
 Prop_Val = java.lang.Integer
 
-.Normal Scenario 4) Configure 2 properties, Alias_Key and Alias_Value for each Table Association.
+.Normal Scenario 5) Configure 2 properties, Alias_Key and Alias_Value for each Table Association.
 If there are more than one table associations, configure multiple pairs of these properties.
 
 The Prop_Val for ALIAS_KEY can be anything. 
@@ -540,6 +547,23 @@ Where, Prop_Val = “op^observationPeriods”
 
 Note that duplicate Aliases are removed during the cleanup phase. So having more than one of these configured is ok. However, in order to support ‘AND’ conditions with multiple fields in the SAME table, we need to replace <criteria> with a subquery template using Special Scenario 4 above. 
 
+.Special Scenario 5a)
+There are other times when we need the oppossite of adding new custom alias.
+In other words, we need to remove the alias of an attribute.
+This happens when a FURTHER Non-Root Object translates to the External Root Object.
+For example, a Location Zip Code from the central model, translating to the External Person Root Object.
+In this case, configure this way:
+
+Prop_Name = ATTR_ALIAS
+
+Prop_Val = “REMOVE^oldAliasKey”
+
+Where, e.g. Prop_Val = “REMOVE^lctn”
+
+Currently, only the uppercase "REMOVE" is important. The oldAliasKey value is reserved for future use.
+Since this format is consistent with the other ATTR_ALIAS Configuration in Special Scenario 5 above.
+
+
 .Special Scenario 6) Add Extra Alias for Special Cases
 Sometimes we have an alias that translates to multiple aliases due to hierarchy relationship levels. This EXCLUDES Observation Types Issues. For example, FURTHER.orders table translates to OpenMRS.patient.orders table. Therefore, we need another alias to support the Sub Level. We need the Translated aliases to be like this, where the ord will go through the patient object:
 
@@ -574,6 +598,21 @@ Prop_Name = ATTR_VALUE_TRANS_FUNC
 
 Prop_Val = CUSTOM^fqt:yearFromDateTime
 
+
+.Special Scenario 8) To Translate a SIMPLE searchType into an IN searchType criterion.
+Sometimes a single coded value needs to be translated into many coded values.
+For example, a single Multum Drug Code translates into many NDC Drug Codes.
+The entire criteria would need to be converted from a SIMPLE searchType into an IN searchType.
+
+Prop_Name = ATTR_VALUE_TRANS_FUNC
+
+Prop_Val Format = SIMPLE_TO_IN^fqt:customDataConversionFunction
+
+e.g. Prop_Val = SIMPLE_TO_IN^fqt:getNdc
+
+The Optional fqt:customDataConversionFunction name is used if the retrieved DTS data needs additional processing.
+For example, we have retrieved full NDC descriptions from the DTS, but we only wanted the NDC Codes within the Full description.
+Therefore, we can apply a custom XQuery function to strip out only the NDC Codes.
 
 
 
