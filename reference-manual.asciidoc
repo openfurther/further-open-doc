@@ -606,13 +606,9 @@ The entire criteria would need to be converted from a SIMPLE searchType into an 
 
 Prop_Name = ATTR_VALUE_TRANS_FUNC
 
-Prop_Val Format = SIMPLE_TO_IN^fqt:customDataConversionFunction
+Prop_Val Format = ONE_TO_MANY
 
-e.g. Prop_Val = SIMPLE_TO_IN^fqt:getNdc
-
-The Optional fqt:customDataConversionFunction name is used if the retrieved DTS data needs additional processing.
-For example, we have retrieved full NDC descriptions from the DTS, but we only wanted the NDC Codes within the Full description.
-Therefore, we can apply a custom XQuery function to strip out only the NDC Codes.
+e.g. Prop_Val = ONE_TO_MANY
 
 
 
@@ -677,6 +673,17 @@ Prop_Val = Domain
 This will create a DTS call like this:
 
 http://dev-esb.further.utah.edu:9000/dts/rest/translate/30/Code%20in%20Source/439401001/32776/Domain?view=HUMAN
+
+OR
+
+If we want to get the value of DTS property type 'ndc_code'
+
+Prop_Name = EXTERNAL_PROPERTY_NAME
+
+Prop_Format = DTS_Property_Name^fqt:customDataConversionFunction
+
+Prop_Val = ndc_code^fqt:getNdc
+
 
 
 
